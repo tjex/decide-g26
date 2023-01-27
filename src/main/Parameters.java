@@ -1,3 +1,5 @@
+package main;
+
 public class Parameters {
     public static double LENGTH1;
     public static double RADIUS1;
