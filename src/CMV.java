@@ -1,11 +1,13 @@
 public class CMV {
     
     private Boolean[] matrix = new Boolean[15];
-    private int[][] datapoints = new int[100][2];
+    private int[][] datapoints;
     
 
-    public CMV(int[][] datapoints){
+    public CMV(int[][] planarDataPoints){
+        datapoints = planarDataPoints;
         calculate_lics();
+
     }
 
     private void calculate_lics(){
@@ -47,6 +49,12 @@ public class CMV {
     }
 
     private Boolean lic5_calculate() {
+        for (int j = 1; j < datapoints.length; j++){ 
+            int i = j - 1;
+            if(datapoints[j][0] - datapoints[i][0] < 0){
+                return true;
+            }
+        }
         return false;
     }
 
