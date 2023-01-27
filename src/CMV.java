@@ -36,7 +36,7 @@ public class CMV {
     private boolean lic0_calculate() {
         for (int j = 1; j < this.datapoints.length; j++){ 
             int i = j - 1;
-            if(euclidean_distance(this.datapoints[j], this.datapoints[i]) >= Parameters.LENGTH1 ){
+            if(euclidean_distance(this.datapoints[j], this.datapoints[i]) > Parameters.LENGTH1 ){
                 return true;
             }
         }
