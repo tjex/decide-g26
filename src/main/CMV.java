@@ -100,6 +100,7 @@ public class CMV {
                     quadrants.add(quadrant);
                 }
             }
+            quadrants.clear();
         }
         return false;
     }
