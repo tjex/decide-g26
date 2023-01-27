@@ -124,6 +124,27 @@ public class CMV {
     }
 
     private Boolean lic8_calculate() {
+        //The condition is not met when NUMPOINTS < 5.
+        if(this.datapoints.length < 5){
+            return false;
+        }
+
+        for (int i = 0; i < this.datapoints.length-Parameters.A_PTS-Parameters.B_PTS - 2; i++) {
+            int p2_index = i + Parameters.A_PTS + 1;
+            int p3_index = p2_index + Parameters.B_PTS + 1;
+
+            int[] p1 = this.datapoints[i];
+            int[] p2 = this.datapoints[p2_index];
+            int[] p3 = this.datapoints[p3_index];
+            double radius = circumscribed_circle_radius(p1,p2,p3);
+
+            // if the radius of the circle going through all the points is larger than RADIUS1
+            // the points can't be contained within a circle with RADIUS
+            if (radius > Parameters.RADIUS1){
+                return true;
+            }
+        }
+
         return false;
     }
 
