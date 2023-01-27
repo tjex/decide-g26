@@ -46,6 +46,19 @@ public class CMV {
     }
 
     private Boolean lic1_calculate() {
+        for (int i = 2; i < this.datapoints.length; i++) {
+
+            int[] p1 = this.datapoints[i-2];
+            int[] p2 = this.datapoints[i-1];
+            int[] p3 = this.datapoints[i];
+            double radius = circumscribed_circle_radius(p1,p2,p3);
+
+            // if the radius of the circle going through all the points is larger than RADIUS1
+            // the points can't be contained within a circle with RADIUS
+            if (radius > Parameters.RADIUS1){
+                return true;
+            }
+        }
         return false;
     }
 
