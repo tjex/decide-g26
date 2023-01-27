@@ -9,16 +9,50 @@ import main.FUV;
 public class FUVTests {
 
     /**
-     *  These test inputs should give
+     *  Test FUV calculation when all elements in PUV are false and true in PUM.
+     *  Expected true for all elements in FUV.
      */
     @Test
-    public void test_fuv_vector_launch() {
-        // TODO: Implement test
+    public void test_fuv_vector_with_pum_all_true() {
+        boolean[] puv = new boolean[15];
+        boolean[][] pum = new boolean[15][15];
+        for(int i = 0; i < pum.length; i++)
+            for(int j = 0; j < pum[i].length; j++)
+                pum[i][j] = true;
+
+        FUV fuv = new FUV();
+        boolean[] res = fuv.calculate_fuv(puv, pum);
+        assertTrue(fuv.is_all_true(res));        
     }
 
+    /**
+     *  Test FUV calculation when all elements in PUV and PUM are false.
+     *  Expected true for all elements in FUV.
+     */
+    @Test
+    public void test_fuv_vector_with_puv_all_false() {
+        boolean[] puv = new boolean[15];
+        boolean[][] pum = new boolean[15][15];
+
+        FUV fuv = new FUV();
+        boolean[] res = fuv.calculate_fuv(puv, pum);
+        assertTrue(fuv.is_all_true(res));
+    }
+
+    /**
+     *  Test FUV calculation which results in a no launch (at least one false element in FUV)
+     */
     @Test
     public void test_fuv_vector_no_launch() {
-        // TODO: Implement test
+        boolean[] puv = new boolean[15];
+        boolean[][] pum = new boolean[15][15];
+
+        for (int i = 0; i < puv.length; i++)
+            puv[i] = true;
+
+        FUV fuv = new FUV();
+        boolean[] res = fuv.calculate_fuv(puv, pum);
+        assertFalse(fuv.is_all_true(res));
     }
 
     /**
