@@ -26,7 +26,7 @@ public class PUM {
         cmv_vector = cmv_vector;
     }
 
-    public void calculate_pum(){
+    public int[][] calculate_pum(){
 
     // If LCM[i,j] is NOTUSED, then PUM[i,j] should be set to true.
     // If LCM[i,j] is ANDD, PUM[i,j] should be set to true 
@@ -43,5 +43,6 @@ public class PUM {
                 }
             }
         }
+        return pum_matrix;
     }
 }
