@@ -1,8 +1,9 @@
+import java.util.ArrayList;
+
 public class CMV {
     
     private Boolean[] matrix = new Boolean[15];
     private int[][] datapoints;
-    
 
     public CMV(int[][] planarDataPoints){
         datapoints = planarDataPoints;
@@ -45,7 +46,41 @@ public class CMV {
     }
 
     private Boolean lic4_calculate() {
+        final int Q_PTS = Parameters.Q_PTS;
+        final int QUADS = Parameters.QUADS;
+        int quadrant;
+        ArrayList<Integer> quadrants = new ArrayList<>(3);
+        for (int i = 0; i < datapoints.length; i++){ 
+            quadrants.add(quadEvaluation(datapoints[i]));
+            for (int j = i+1; j < Q_PTS; j++){
+                if(j >= datapoints.length - 1){
+                    return false;
+                }
+                if(quadrants.size() == QUADS){
+                    return true;
+                }
+                quadrant = quadEvaluation(datapoints[j]);
+                if(!quadrants.contains(quadrant)){
+                    quadrants.add(quadrant);
+                }
+            }
+        }
         return false;
+    }
+
+    private int quadEvaluation(int[] datapoint){
+        if(datapoint[0] >= 0 && datapoint[1] >= 0){
+            return 1;
+        }
+        else if(datapoint[0] <= 0 && datapoint[1] >= 0){
+            return 2;
+        }
+        else if(datapoint[0] <= 0 && datapoint[1] <= 0){
+            return 3;
+        }
+        else{
+            return 4;
+        }
     }
 
     private Boolean lic5_calculate() {
