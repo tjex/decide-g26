@@ -39,8 +39,28 @@ public class CMV {
         return false;
     }
     
-    private Boolean lic2_calculate() {
-        return false;
+    private int lic2_calculate() {
+        final double EPSILON = Parameters.EPSILON;
+        for (int k = 2; k < datapoints.length; k++){ 
+            int j = k - 1;
+            int i = j - 1;
+            if(datapoints[j][0] == datapoints[i][0] && datapoints[j][1] == datapoints[i][1]){
+                return 0;
+            }
+            else if(datapoints[j][0] == datapoints[k][0] && datapoints[j][1] == datapoints[k][1]){
+                return 0;
+            }
+            double[] vectorIJ = {datapoints[j][0] - datapoints[i][0],datapoints[j][1] - datapoints[i][1]};
+            double[] vectorJK = {datapoints[k][0] - datapoints[j][0],datapoints[k][1] - datapoints[j][1]};
+            double dotProduct = vectorIJ[0]*vectorJK[0] + vectorIJ[1]*vectorJK[1];
+            double magnitudeIJ = Math.sqrt(Math.pow(vectorIJ[0],2) + Math.pow(vectorIJ[1],2));
+            double magnitudeJK = Math.sqrt(Math.pow(vectorIJ[0],2) + Math.pow(vectorIJ[1],2));
+            double angle = Math.acos(dotProduct / (magnitudeIJ * magnitudeJK));
+            if(angle < (Math.PI - EPSILON) || angle > (Math.PI + EPSILON)){
+                return 1;
+            }
+        }
+        return 0;
     }
 
     private Boolean lic3_calculate() {
