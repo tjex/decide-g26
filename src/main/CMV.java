@@ -1,3 +1,5 @@
+package main;
+
 public class CMV {
     
     private boolean[] cmv_vector = new boolean[15];
