@@ -80,6 +80,7 @@ public class CMV {
 
         return radius;
     }
+
     
     private Boolean lic2_calculate() {
         return false;
