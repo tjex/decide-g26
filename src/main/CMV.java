@@ -31,19 +31,53 @@ public class CMV {
         cmv_vector[14] = lic14_calculate();
     }
 
-    private Boolean lic0_calculate() {
+
+
+
+    private boolean lic0_calculate() {
+        for (int j = 1; j < this.datapoints.length; j++){ 
+            int i = j - 1;
+            if(Helper_Functions.euclidean_distance(this.datapoints[j], this.datapoints[i]) > Parameters.LENGTH1 ){
+                return true;
+            }
+        }
         return false;
     }
 
     private Boolean lic1_calculate() {
+        for (int i = 2; i < this.datapoints.length; i++) {
+
+            int[] p1 = this.datapoints[i-2];
+            int[] p2 = this.datapoints[i-1];
+            int[] p3 = this.datapoints[i];
+            double radius = Helper_Functions.circumscribed_circle_radius(p1,p2,p3);
+
+            // if the radius of the circle going through all the points is larger than RADIUS1
+            // the points can't be contained within a circle with RADIUS
+            if (radius > Parameters.RADIUS1){
+                return true;
+            }
+        }
         return false;
     }
+
     
     private Boolean lic2_calculate() {
         return false;
     }
 
-    private Boolean lic3_calculate() {
+    private boolean lic3_calculate() {
+        for (int i = 0; i < datapoints.length - 2; i += 3) {
+            int[] first = datapoints[i];
+            int[] second = datapoints[i + 1];
+            int[] third = datapoints[i + 2];
+            
+            double area = ((double) 1/2) * (Math.abs(first[0]*(second[1]-third[1])+second[0]*(third[1]-first[1])+third[0]*(first[1]-second[1])));
+
+            if(area > Parameters.AREA1){
+                return true;
+            }
+        }
         return false;
     }
 
