@@ -1,4 +1,5 @@
 package main;
+
 public class CMV {
     
     private boolean[] cmv_vector = new boolean[15];
@@ -64,24 +65,8 @@ public class CMV {
         return false;
     }
     
-    private int lic7_calculate() {
-        final int K_PTS = Parameters.K_PTS;
-        final double LENGTH1 = Parameters.LENGTH1;
-        if(datapoints.length < 3){
-            return 0;
-        }
-        for(int i = 0; i < datapoints.length; i++){
-            if(i + K_PTS > datapoints.length - 1){
-                return 0;
-            }
-            int j = i + K_PTS;
-            double[] vectorIJ = {datapoints[j][0] - datapoints[i][0], datapoints[j][1] - datapoints[i][1]}; 
-            double magnitudeIJ = Math.sqrt(Math.pow(vectorIJ[0],2) + Math.pow(vectorIJ[1],2));
-            if(magnitudeIJ > LENGTH1){
-                return 1;
-            }
-        }
-        return 0;
+    private Boolean lic7_calculate() {
+        return false;
     }
 
     private Boolean lic8_calculate() {
