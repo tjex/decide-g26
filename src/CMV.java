@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class CMV {
     
-    private Boolean[] matrix = new Boolean[15];
+    private boolean[] cmv_vector = new boolean[15];
     private int[][] datapoints;
 
     public CMV(int[][] planarDataPoints){
@@ -12,21 +12,21 @@ public class CMV {
     }
 
     private void calculate_lics(){
-        matrix[0] = lic0_calculate();
-        matrix[1] = lic1_calculate();
-        matrix[2] = lic2_calculate();
-        matrix[3] = lic3_calculate();
-        matrix[4] = lic4_calculate();
-        matrix[5] = lic5_calculate();
-        matrix[6] = lic6_calculate();
-        matrix[7] = lic7_calculate();
-        matrix[8] = lic8_calculate();
-        matrix[9] = lic9_calculate();
-        matrix[10] = lic10_calculate();
-        matrix[11] = lic11_calculate();
-        matrix[12] = lic12_calculate();
-        matrix[13] = lic13_calculate();
-        matrix[14] = lic14_calculate();
+        cmv_vector[0] = lic0_calculate();
+        cmv_vector[1] = lic1_calculate();
+        cmv_vector[2] = lic2_calculate();
+        cmv_vector[3] = lic3_calculate();
+        cmv_vector[4] = lic4_calculate();
+        cmv_vector[5] = lic5_calculate();
+        cmv_vector[6] = lic6_calculate();
+        cmv_vector[7] = lic7_calculate();
+        cmv_vector[8] = lic8_calculate();
+        cmv_vector[9] = lic9_calculate();
+        cmv_vector[10] = lic10_calculate();
+        cmv_vector[11] = lic11_calculate();
+        cmv_vector[12] = lic12_calculate();
+        cmv_vector[13] = lic13_calculate();
+        cmv_vector[14] = lic14_calculate();
     }
 
     private Boolean lic0_calculate() {
