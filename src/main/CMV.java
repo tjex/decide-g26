@@ -31,6 +31,9 @@ public class CMV {
         cmv_vector[14] = lic14_calculate();
     }
 
+
+
+
     private boolean lic0_calculate() {
         for (int j = 1; j < this.datapoints.length; j++){ 
             int i = j - 1;
