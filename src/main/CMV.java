@@ -103,7 +103,7 @@ public class CMV {
         }
         return false;
     }
-    private int quadEvaluation(int[] datapoint){
+    public int quadEvaluation(int[] datapoint){
         if(datapoint[0] >= 0 && datapoint[1] >= 0){
             return 1;
         }
