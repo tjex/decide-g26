@@ -21,3 +21,14 @@ FUVi = {
 
 }
 ```
+
+## Commit Structure
+
+prefix = fix, feat, doc, refactor, verbs
+
+[prefix] [info] [#issuenumber]
+
+... detailed info
+... detailed info
+
+
