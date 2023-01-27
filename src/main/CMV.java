@@ -46,14 +46,58 @@ public class CMV {
     }
 
     private Boolean lic1_calculate() {
+        for (int i = 2; i < this.datapoints.length; i++) {
+
+            int[] p1 = this.datapoints[i-2];
+            int[] p2 = this.datapoints[i-1];
+            int[] p3 = this.datapoints[i];
+            double radius = circumscribed_circle_radius(p1,p2,p3);
+
+            // if the radius of the circle going through all the points is larger than RADIUS1
+            // the points can't be contained within a circle with RADIUS
+            if (radius > Parameters.RADIUS1){
+                return true;
+            }
+        }
         return false;
     }
+
+    /// Calculates the radius of a circle circumscribing the triangle described by the three points
+    // source for equation: https://hratliff.com/posts/2019/02/curvature-of-three-points/
+    public static double circumscribed_circle_radius(int[] p1, int[] p2, int[] p3){
+        int x1 = p1[0];
+        int y1 = p1[1];
+        int x2 = p2[0];
+        int y2 = p2[1];
+        int x3 = p3[0];
+        int y3 = p3[1];
+
+        double a = Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2);
+        double b = Math.pow((x3 - x2), 2) + Math.pow((y3 - y2), 2);
+        double c = Math.pow((x1 - x3), 2) + Math.pow((y1 - y3), 2);
+        double d = Math.abs(((x2 - x1) * (y3 - y2)) - ((y2 - y1) * (x3 - x2)));
+        double radius = Math.sqrt(a * b * c) /(2 * d);
+
+        return radius;
+    }
+
     
     private Boolean lic2_calculate() {
         return false;
     }
 
-    private Boolean lic3_calculate() {
+    private boolean lic3_calculate() {
+        for (int i = 0; i < datapoints.length - 2; i += 3) {
+            int[] first = datapoints[i];
+            int[] second = datapoints[i + 1];
+            int[] third = datapoints[i + 2];
+            
+            double area = ((double) 1/2) * (Math.abs(first[0]*(second[1]-third[1])+second[0]*(third[1]-first[1])+third[0]*(first[1]-second[1])));
+
+            if(area > Parameters.AREA1){
+                return true;
+            }
+        }
         return false;
     }
 
