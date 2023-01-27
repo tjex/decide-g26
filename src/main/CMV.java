@@ -139,8 +139,27 @@ public class CMV {
         return false;
     }
     
-    private Boolean lic12_calculate() {
-        return false;
+    private int lic12_calculate() {
+        boolean checkBigger = false;
+        boolean checkSmaller = false;
+        for(int i = 0; i < datapoints.length; i++){
+            int j = i + Parameters.K_PTS;
+            if (j > datapoints.length - 1){
+                return 0;
+            } 
+            double[] vectorIJ = {datapoints[j][0] - datapoints[i][0], datapoints[j][1] - datapoints[i][1]};
+            double magnitudeIJ = Math.sqrt(Math.pow(vectorIJ[0], 2) + Math.pow(vectorIJ[1], 2));
+            if(magnitudeIJ > Parameters.LENGTH1){
+                checkBigger = true;
+            }
+            if(magnitudeIJ < Parameters.LENGTH2){
+                checkSmaller = true;
+            }
+        }
+        if(checkSmaller && checkBigger){
+            return 1;
+        }
+        return 0;
     }
 
     private Boolean lic13_calculate() {
