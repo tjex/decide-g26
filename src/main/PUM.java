@@ -14,16 +14,16 @@ package main;
 public class PUM {
     
     private int[][] lcm_datapoints;
-    private int[] puv_booleans;
+    private int[] cmv_vector;
     private int[][] pum_matrix;
 
 
-    public PUM(int[][] lcm_datapoints, int[] puv_booleans){
+    public PUM(int[][] lcm_datapoints, int[] cmv_vector){
         // get LCM vector
-        lcm_datapoints = lcm_datapoints;
+        this.lcm_datapoints = lcm_datapoints;
 
         // get CMV vector
-        cmv_vector = cmv_vector;
+        this.cmv_vector = cmv_vector;
     }
 
     public int[][] calculate_pum(){
@@ -32,14 +32,12 @@ public class PUM {
     // If LCM[i,j] is ANDD, PUM[i,j] should be set to true 
     // only if (CMV[i] AND CMV[j]) is true.
     
+        pum_matrix = new int[15][15];
         for (int i = 0; i < lcm_datapoints.length; i++){
             for (int j = 0; j < lcm_datapoints[j].length; j++){
-                if (lcm_datapoints[i][j] == -1 || (lcm_datapoints[i][j] == 1 && cmv_vector[i][j] == 1)){
+                if (lcm_datapoints[i][j] == -1 || (lcm_datapoints[i][j] == 1 && cmv_vector[i] == 1 && cmv_vector[j] == 1)){
                     pum_matrix[i][j] = 1;
-                    System.out.println("in if");
-                } else {
-                    System.out.println("in else");
-                    // continue or set to false? 
+                    // System.out.println("in if");
                 }
             }
         }
