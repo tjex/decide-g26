@@ -23,4 +23,8 @@ public class Helper_Functions {
     public static double euclidean_distance(int[] a, int[] b){
         return Math.sqrt(Math.pow((b[0]-a[0]), 2) + Math.pow((b[1]-a[1]), 2));
     }
+
+    public static int dot_product(int[] a, int[] b){
+        return (a[0]*b[0])+(a[1]*b[1]);
+    }
 }
