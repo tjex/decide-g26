@@ -31,7 +31,9 @@ public class CMV {
         cmv_vector[14] = lic14_calculate();
     }
 
-
+    public boolean get_cmv_value(int lic_number){
+        return cmv_vector[lic_number];
+    }
 
     private boolean lic0_calculate() {
         for (int j = 1; j < this.datapoints.length; j++){ 
@@ -94,7 +96,7 @@ public class CMV {
         return false;
     }
 
-    public Boolean lic6_calculate() {
+    private Boolean lic6_calculate() {
         int N_PTS = Parameters.N_PTS;
         double DIST = Parameters.DIST;
         if(N_PTS < 3 || N_PTS > datapoints.length || DIST <= 0)
