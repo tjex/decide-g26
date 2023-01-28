@@ -104,7 +104,7 @@ public class CMV {
         return false;
     }
 
-    public boolean lic8_calculate() {
+    private boolean lic8_calculate() {
         //The condition is not met when NUMPOINTS < 5.
         if(this.datapoints.length < 5){
             return false;

@@ -62,14 +62,14 @@ public class LIC_test {
         // When both NUMPOINTS, A_PTS, B_PTS violate the requirements
         for (int[][] datapoints: all_datapoints){
             CMV cmv = new CMV(datapoints);
-            assertEquals(false, cmv.lic8_calculate());
+            assertEquals(false, cmv.get_cmv_value(8));
         }
 
         // Num of data points is OK
         // But A_PTS and B_PTS are not!
         int[][] five_data_points = new int[][] {{2, 1},{0, 0},{3, 4},{2, 2},{5,1}};
         CMV cmv = new CMV(five_data_points);
-        assertEquals(false, cmv.lic8_calculate());
+        assertEquals(false, cmv.get_cmv_value(8));
     }
 
     /**
@@ -85,7 +85,7 @@ public class LIC_test {
         Parameters.RADIUS1 = 2;
 
         CMV cmv = new CMV(data_points);
-        assertEquals(true, cmv.lic8_calculate());
+        assertEquals(true, cmv.get_cmv_value(8));
     }
 
     /**
@@ -101,7 +101,7 @@ public class LIC_test {
         Parameters.RADIUS1 = 10;
 
         CMV cmv = new CMV(data_points);
-        assertEquals(false, cmv.lic8_calculate());
+        assertEquals(false, cmv.get_cmv_value(8));
     }
 
 }
