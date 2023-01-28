@@ -31,7 +31,9 @@ public class CMV {
         cmv_vector[14] = lic14_calculate();
     }
 
-
+    public boolean get_cmv_value(int lic_number){
+        return cmv_vector[lic_number];
+    }
 
 
     private boolean lic0_calculate() {
@@ -88,9 +90,9 @@ public class CMV {
         ArrayList<Integer> quadrants = new ArrayList<>(3);
         for (int i = 0; i < datapoints.length; i++){ 
             quadrants.add(quadEvaluation(datapoints[i]));
-            for (int j = i+1; j < Q_PTS; j++){
-                if(j >= datapoints.length - 1){
-                    return false;
+            for (int j = i+1; j < i + Q_PTS; j++){
+                if(j > datapoints.length - 1){
+                    continue;
                 }
                 if(quadrants.size() == QUADS){
                     return true;
@@ -100,10 +102,17 @@ public class CMV {
                     quadrants.add(quadrant);
                 }
             }
+            System.out.println(quadrants);
+            if(quadrants.size() == QUADS){
+                return true;
+            }
+            quadrant = -1;
             quadrants.clear();
         }
         return false;
     }
+    
+    
     public int quadEvaluation(int[] datapoint){
         if(datapoint[0] >= 0 && datapoint[1] >= 0){
             return 1;
@@ -119,7 +128,7 @@ public class CMV {
         }
     }
 
-    private Boolean lic5_calculate() {
+    public boolean lic5_calculate() {
         for (int j = 1; j < datapoints.length; j++){ 
             int i = j - 1;
             if(datapoints[j][0] - datapoints[i][0] < 0){
