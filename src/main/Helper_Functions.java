@@ -27,4 +27,10 @@ public class Helper_Functions {
     public static int dot_product(int[] a, int[] b){
         return (a[0]*b[0])+(a[1]*b[1]);
     }
+
+    //returns a vector pointing towards the vector a
+    public static int[] vector_subtraction(int[] a, int[] b){
+        int[] out = {a[0]-b[0], a[1]-b[1]};
+        return out;
+    }
 }
