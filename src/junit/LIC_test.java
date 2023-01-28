@@ -6,13 +6,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.beans.Transient;
 
 public class LIC_test {
     //LIC 4
     @Test
-    void check_if_dataPoint_converted_to_correct_quadrant(){
+    public void check_if_dataPoint_converted_to_correct_quadrant(){
         int[][] datapoints = {{0,0},{1,0},{2,0}};
         CMV cmv = new CMV(datapoints);
         int[] point1 = {0,0}; 
