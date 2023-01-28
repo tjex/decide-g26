@@ -100,24 +100,29 @@ public class CMV {
         return false;
     }
     
-    private int lic7_calculate() {
+    private boolean lic7_calculate() {
+        
         final int K_PTS = Parameters.K_PTS;
         final double LENGTH1 = Parameters.LENGTH1;
         if(datapoints.length < 3){
-            return 0;
+            return false;
+        }
+        if(K_PTS < 1 || K_PTS > datapoints.length - 2){
+            return false;
         }
         for(int i = 0; i < datapoints.length; i++){
             if(i + K_PTS > datapoints.length - 1){
-                return 0;
+                return false;
             }
             int j = i + K_PTS;
-            double[] vectorIJ = {datapoints[j][0] - datapoints[i][0], datapoints[j][1] - datapoints[i][1]}; 
-            double magnitudeIJ = Math.sqrt(Math.pow(vectorIJ[0],2) + Math.pow(vectorIJ[1],2));
+            
+            int[] vectorIJ = Helper_Functions.vector_subtraction(datapoints[j],datapoints[i]);
+            double magnitudeIJ = Helper_Functions.vector_magnitude(vectorIJ);
             if(magnitudeIJ > LENGTH1){
-                return 1;
+                return true;
             }
         }
-        return 0;
+        return false;
     }
 
     private Boolean lic8_calculate() {

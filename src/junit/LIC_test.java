@@ -30,4 +30,26 @@ public class LIC_test {
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.lic5_calculate());
     }
+    
+    /* LIC 7
+    *  K_PTS = 3
+    *  LENGTH1 = 2
+    */
+    @Test
+    public void checkIfValidGivesTrueLic7(){
+        int[][] datapoints = {{0,0},{0,0},{0,0},{5,0},{0,0}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(7));
+    }
+
+    /* LIC 7
+    *  K_PTS = 3
+    *  LENGTH1 = 2
+    */
+    @Test
+    public void checkIfInvalidGivesFalseLic7(){
+        int[][] datapoints = {{0,0},{0,0},{0,0},{1,0},{0,0}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(7));
+    }
 }
