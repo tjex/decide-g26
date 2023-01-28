@@ -116,21 +116,22 @@ public class CMV {
         return false;
     }
 
-    private int lic11_calculate() {
+    private boolean lic11_calculate() {
         if(datapoints.length < 3){
-            return 0;
+            return false;
         }
+        final int G_PTS = Parameters.G_PTS;
 
         for(int i = 0; i < datapoints.length; i++){
-            int j = i + Parameters.G_PTS;
+            int j = i + G_PTS + 1;
             if(j > datapoints.length - 1){
-                return 0;
+                return false;
             }
             if(datapoints[j][0] - datapoints[i][0] < 0){
-                return 1;
+                return true;
             }
         }
-        return 0;
+        return false;
     }
     
     private Boolean lic12_calculate() {
