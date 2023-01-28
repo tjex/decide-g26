@@ -178,10 +178,9 @@ public class CMV {
         return false;
     }
     
-    public static boolean lic12_calculate() {
+    public boolean lic12_calculate() {
         boolean checkBigger = false;
         boolean checkSmaller = false;
-        //int[][] datapoints = {{1,1},{1,1},{1,1},{6,2},{1,1},{1,1}};
         final int K_PTS = Parameters.K_PTS;
         final double LENGTH1 = Parameters.LENGTH1;
         final double LENGTH2 = Parameters.LENGTH2;
