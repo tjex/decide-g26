@@ -10,7 +10,6 @@ import static org.junit.Assert.assertTrue;
 
 public class LIC_test {
 
-
     @Test 
     public void cmv_getter_test(){
         //pretty useless test, works cause lic5-calculate is run in the constructor
@@ -23,14 +22,14 @@ public class LIC_test {
     public void checkIfValidGivesTrue(){
         int[][] datapoints = {{4,0},{3,0},{2,0},{1,0},{0,0}};
         CMV cmv = new CMV(datapoints);
-        assertTrue(cmv.get_cmv_value(5));
+        assertTrue(cmv.lic5_calculate());
     }
     //LIC 5
     @Test
     public void checkIfInvalidGivesFalse(){
         int[][] datapoints = {{0,0},{1,0},{2,0},{3,0},{4,0}};
         CMV cmv = new CMV(datapoints);
-        assertFalse(cmv.get_cmv_value(5));
+        assertFalse(cmv.lic5_calculate());
     }
 
     @Test
@@ -68,8 +67,6 @@ public class LIC_test {
 
     }
 
-    
-
     /* LIC 11
     *  G_PTS = 3
     *  #Test wheter {3,0} and {2,0}, which are seperated by three datapoints, 
@@ -93,5 +90,50 @@ public class LIC_test {
         int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{4,0}};
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(11));
+    }
+    /*LIC 14
+    //-------------------------------------------------
+    */
+    /*
+     * Checks if two datapoints seperated by 2 will have a magnitude between 
+     * 2 and 5. This should return true since 2 (AREA1) < sqrt(18) < 5 (AREA2), 
+     * which are the requirments for lic12_calculate() to yield true.
+     */
+    @Test
+    public void checkInvalidDistancebetweenLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{0,0},{4,4},{0,0},{0,0},{1,1}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(14));
+    }
+    /*
+     * Checks if two datapoints seperated by 2 will have a magnitude between 
+     * 2 and 5. This should return false since sqrt(32) > 5 (AREA2), 
+     * which dosen't fulfill the requirments of being less than AREA2.
+     */
+    @Test
+    public void checkInvalidDistanceOverLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{0,0},{5,5},{0,0},{0,0},{1,1}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(14));
+    }
+    /*
+     * Checks if two datapoints seperated by 2 will have a magnitude between 
+     * 2 and 5. This should return false since sqrt(2) < 2 (AREA1), 
+     * which dosen't fulfill the requirments of being bigger than AREA1.
+     */
+    @Test
+    public void checkInvalidDistanceUnderLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{0,0},{2,2},{0,0},{0,0},{1,1}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(14));
     }
 }
