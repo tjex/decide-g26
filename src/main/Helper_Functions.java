@@ -40,4 +40,16 @@ public class Helper_Functions {
         int[] out = {a[0]-b[0], a[1]-b[1]};
         return out;
     }
+
+    //from three points, where the middle argument is the vertex and the other two are the ends of rays from that vertex
+    //return the angle  (in radians!) between those rays
+    public static double three_point_angle(int[] ray_end_1, int[] vertex, int[] ray_end_2){
+        int[] vector1 = vector_subtraction(ray_end_1, vertex);
+        int[] vector2 = vector_subtraction(ray_end_2, vertex);
+        
+        double fraction = (dot_product(vector1, vector2))/(vector_magnitude(vector1)*vector_magnitude(vector2));
+        double angle = Math.acos(fraction);
+
+        return angle;
+    }
 }
