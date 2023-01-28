@@ -106,6 +106,12 @@ public class CMV {
             int p1 = point;
             int p2 = (point + N_PTS - 1) % datapoints.length;
             
+            // Coordinates for first and last point
+            int x1 = datapoints[p1][0];
+            int y1 = datapoints[p1][1];
+            int x2 = datapoints[p2][0];
+            int y2 = datapoints[p2][1];
+
             // Condition when first and last are "identical".
             // Due to p1 and p2 cannot have the same index, that require N_PTS be greater than 
             // datapoints.length, I will treat identical as close enough within the plane.
@@ -128,10 +134,6 @@ public class CMV {
             // If any set contains at least one point with distance greater than DIST, return true.
             for (int p = p1 + 1; p < p1 + N_PTS - 1; p++) {
                 int idx = p % datapoints.length;
-                int x1 = datapoints[p1][0];
-                int y1 = datapoints[p1][1];
-                int x2 = datapoints[p2][0];
-                int y2 = datapoints[p2][1];
                 int x0 = datapoints[idx][0];
                 int y0 = datapoints[idx][1];
                 double distance = 
