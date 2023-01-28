@@ -22,4 +22,9 @@ public class LIC_test {
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.lic5_calculate());
     }
+
+    @Test
+    public void test_lic9(){
+        
+    }
 }
