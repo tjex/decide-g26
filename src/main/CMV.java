@@ -31,14 +31,14 @@ public class CMV {
         cmv_vector[14] = lic14_calculate();
     }
 
-    public static double euclidean_distance(int[] a, int[] b){
-        return Math.sqrt(Math.pow((b[0]-a[0]), 2) + Math.pow((b[1]-a[1]), 2));
+    public boolean get_cmv_value(int lic_number){
+        return cmv_vector[lic_number];
     }
 
     private boolean lic0_calculate() {
         for (int j = 1; j < this.datapoints.length; j++){ 
             int i = j - 1;
-            if(euclidean_distance(this.datapoints[j], this.datapoints[i]) > Parameters.LENGTH1 ){
+            if(Helper_Functions.euclidean_distance(this.datapoints[j], this.datapoints[i]) > Parameters.LENGTH1 ){
                 return true;
             }
         }
@@ -51,7 +51,7 @@ public class CMV {
             int[] p1 = this.datapoints[i-2];
             int[] p2 = this.datapoints[i-1];
             int[] p3 = this.datapoints[i];
-            double radius = circumscribed_circle_radius(p1,p2,p3);
+            double radius = Helper_Functions.circumscribed_circle_radius(p1,p2,p3);
 
             // if the radius of the circle going through all the points is larger than RADIUS1
             // the points can't be contained within a circle with RADIUS
@@ -60,25 +60,6 @@ public class CMV {
             }
         }
         return false;
-    }
-
-    /// Calculates the radius of a circle circumscribing the triangle described by the three points
-    // source for equation: https://hratliff.com/posts/2019/02/curvature-of-three-points/
-    public static double circumscribed_circle_radius(int[] p1, int[] p2, int[] p3){
-        int x1 = p1[0];
-        int y1 = p1[1];
-        int x2 = p2[0];
-        int y2 = p2[1];
-        int x3 = p3[0];
-        int y3 = p3[1];
-
-        double a = Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2);
-        double b = Math.pow((x3 - x2), 2) + Math.pow((y3 - y2), 2);
-        double c = Math.pow((x1 - x3), 2) + Math.pow((y1 - y3), 2);
-        double d = Math.abs(((x2 - x1) * (y3 - y2)) - ((y2 - y1) * (x3 - x2)));
-        double radius = Math.sqrt(a * b * c) /(2 * d);
-
-        return radius;
     }
 
     
@@ -105,7 +86,7 @@ public class CMV {
         return false;
     }
 
-    private Boolean lic5_calculate() {
+    public boolean lic5_calculate() {
         for (int j = 1; j < datapoints.length; j++){ 
             int i = j - 1;
             if(datapoints[j][0] - datapoints[i][0] < 0){
