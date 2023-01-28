@@ -33,7 +33,9 @@ public class CMV {
         cmv_vector[14] = lic14_calculate();
     }
 
-
+    public boolean get_cmv_value(int lic_number){
+        return cmv_vector[lic_number];
+    }
 
     private boolean lic0_calculate() {
         for (int j = 1; j < this.datapoints.length; j++){ 
