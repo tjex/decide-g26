@@ -16,6 +16,36 @@ public class LIC_test {
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(5));
     }
+    //LIC 2
+    //Epsilon = pi/4
+    
+
+    @Test
+    public void checkValid90DegreeAngleUnderLic2(){
+        int[][] datapoints = {{0,1},{0,0},{1,0}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(2));
+    }
+    /*
+     * LIC2
+     * Epsilon = pi/4
+     */
+    @Test
+    public void checkValid270DegreeAngleOverLic2(){
+        int[][] datapoints = {{0,-1},{0,0},{1,0}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(2));
+    }
+    /*
+     * LIC2
+     * Epsilon = pi/4
+     */
+    @Test
+    public void checkInvalid180DegreeAngleLic2(){
+        int[][] datapoints = {{-1,0},{0,0},{1,0}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(2));
+    }
     //LIC 5
     @Test
     public void checkIfValidGivesTrue(){
