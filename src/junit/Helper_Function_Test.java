@@ -49,4 +49,16 @@ public class Helper_Function_Test {
         assertTrue(Arrays.equals(Helper_Functions.vector_subtraction(a2, b2), r2));
         assertFalse(Arrays.equals(Helper_Functions.vector_subtraction(a2, b2), r1));
     }
+
+    @Test
+    public void test_vector_magnitude(){
+        int[] a1 = {12,32};
+        int[] b1 = {0,0};
+        int[] c1 = {-1,123};
+        int[] d1 = {12313,1231321};
+
+        assertEquals(Helper_Functions.vector_magnitude(a1), 34.18, 0.01);
+        assertEquals(Helper_Functions.vector_magnitude(b1), 0.0, 0.01);
+        assertEquals(Helper_Functions.vector_magnitude(c1), 123.00406497347964, 0.01);
+    }
 }

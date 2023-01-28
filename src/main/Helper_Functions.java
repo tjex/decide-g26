@@ -24,6 +24,13 @@ public class Helper_Functions {
         return Math.sqrt(Math.pow((b[0]-a[0]), 2) + Math.pow((b[1]-a[1]), 2));
     }
 
+    //returns vector magnitude, not rounded 
+    public static double vector_magnitude(int[] a){
+        int[] origin = {0,0};
+        double dist = euclidean_distance(a, origin);
+        return dist;
+    }
+
     public static int dot_product(int[] a, int[] b){
         return (a[0]*b[0])+(a[1]*b[1]);
     }
