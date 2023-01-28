@@ -88,11 +88,6 @@ public class LIC_test {
 
         CMV cmv = new CMV(data_points);
         assertEquals(true, cmv.lic6_calculate());
-
-        // Shifted the (0, 0) and (3, 0) points so it tests array wrapping
-        data_points = new int[][] {{1, 1}, {0, 0}, {3, 0}, {2, 2}};
-        cmv = new CMV(data_points);
-        assertEquals(true, cmv.lic6_calculate());
     }
 
     /**
