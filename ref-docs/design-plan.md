@@ -31,4 +31,9 @@ prefix = fix, feat, doc, refactor, verbs
 ... detailed info
 ... detailed info
 
+## State Encoding
+
+notused = -1
+false/ORR = 0
+true/ANDD = 1
 
