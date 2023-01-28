@@ -84,7 +84,7 @@ public class CMV {
         return false;
     }
 
-    private Boolean lic5_calculate() {
+    public boolean lic5_calculate() {
         for (int j = 1; j < datapoints.length; j++){ 
             int i = j - 1;
             if(datapoints[j][0] - datapoints[i][0] < 0){
