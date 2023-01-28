@@ -117,6 +117,13 @@ public class CMV {
         double pi = Math.PI;
         double ep = Parameters.EPSILON;
 
+        boolean length_cond = Parameters.C_PTS + Parameters.D_PTS <= datapoints.length - 3;
+        boolean bound_cond = 1 <= Parameters.C_PTS && 1<= Parameters.D_PTS;
+
+        if(!(length_cond && bound_cond)){
+            System.exit(1);
+        }
+
         if(datapoints.length < 5){
             return false;
         }

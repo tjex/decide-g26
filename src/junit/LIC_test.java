@@ -56,11 +56,14 @@ public class LIC_test {
         CMV cmv4 = new CMV(datapoints4);
         
         
-        
-        assertFalse(cmv1.get_cmv_value(9)); //datapoints fewer than 5
-        assertFalse(cmv2.get_cmv_value(9)); //no such points
-        assertTrue(cmv3.get_cmv_value(9)); //points with 90 deg angle
-        assertFalse(cmv4.get_cmv_value(9)); //points with a very obtuse angle almost 180deg
+        //condition should not be met when datapoints are fewer than 5
+        assertFalse(cmv1.get_cmv_value(9)); 
+        //points where the ones divided by the boundaries do not have the required angle
+        assertFalse(cmv2.get_cmv_value(9)); 
+        //the required points have a 90 degree angle which is ~1.57 radians which is less than 2.64
+        assertTrue(cmv3.get_cmv_value(9));
+        //points with a very obtuse angle almost 180deg which is more than 2.64 and below 3.64, should be false 
+        assertFalse(cmv4.get_cmv_value(9)); 
 
     }
 }
