@@ -31,7 +31,6 @@ public class LIC_test {
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.lic5_calculate());
     }
-    
 
     @Test
     public void test_lic9(){
@@ -66,5 +65,30 @@ public class LIC_test {
         //points with a very obtuse angle almost 180deg which is more than 2.64 and below 3.64, should be false 
         assertFalse(cmv4.get_cmv_value(9)); 
 
+    }
+
+    /* LIC 11
+    *  G_PTS = 3
+    *  #Test wheter {3,0} and {2,0}, which are seperated by three datapoints, 
+        will yield true in the function lic11_calculate(). This since 2 - 3 < 0
+        which fullfills the requirment of being less than 0.  
+    */
+    @Test
+    public void checkIfValidGivesTrueLic11(){
+        int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{2,0}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(11));
+    }
+    /* LIC 11
+    *  G_PTS = 3
+    *  #Test wheter {3,0} and {4,0}, which are seperated by three datapoints, 
+        will yield false in the function lic11_calculate(). This since 4 - 3 > 0
+        and function returns true on less than 0.  
+    */
+    @Test
+    public void checkIfInvalidGivesFalseLic11(){
+        int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{4,0}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(11));
     }
 }
