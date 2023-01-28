@@ -155,7 +155,29 @@ public class CMV {
         return false;
     }
 
-    private Boolean lic10_calculate() {
+    private boolean lic10_calculate() {
+
+        int points_bound = Parameters.E_PTS + Parameters.F_PTS + 2;
+
+        if(datapoints.length < 5){
+            return false;
+        }
+
+        for (int i = 0; i < datapoints.length - points_bound ; i += 1) {
+           
+            int second_point_location = i + Parameters.E_PTS + 1 ;
+            int third_point_location = second_point_location + Parameters.F_PTS + 1 ;
+            
+            int[] first = datapoints[i];
+            int[] second = datapoints[second_point_location];
+            int[] third = datapoints[third_point_location];
+
+            if(Helper_Functions.triangle_vertex_area(first, second, third) > Parameters.AREA1){
+                return true;
+            }
+
+        }
+
         return false;
     }
 
