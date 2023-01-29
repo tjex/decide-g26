@@ -152,6 +152,10 @@ public class CMV {
 
         return false;
     }
+    /*
+     * Returns true if there exist two datapoints (I,J), seperated by K_PTS datapoints,
+     * that are at a distance greater than LENGTH1. 
+     */
     
     private boolean lic7_calculate() {
         
