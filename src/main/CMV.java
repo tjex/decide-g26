@@ -181,14 +181,11 @@ public class CMV {
         if(datapoints.length < 3){
             return false;
         }
-        if(K_PTS < 1 || K_PTS > datapoints.length - 2){
-            return false;
-        }
         for(int i = 0; i < datapoints.length; i++){
-            if(i + K_PTS > datapoints.length - 1){
-                return false;
+            int j = i + K_PTS + 1;
+            if(j > datapoints.length - 1){
+                break;
             }
-            int j = i + K_PTS;
             
             int[] vectorIJ = Helper_Functions.vector_subtraction(datapoints[j],datapoints[i]);
             double magnitudeIJ = Helper_Functions.vector_magnitude(vectorIJ);
