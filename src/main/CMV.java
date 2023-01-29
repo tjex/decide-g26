@@ -98,7 +98,7 @@ public class CMV {
         return false;
     }
 
-    private Boolean lic6_calculate() {
+    private boolean lic6_calculate() {
         int N_PTS = Parameters.N_PTS;
         double DIST = Parameters.DIST;
         if(N_PTS < 3 || N_PTS > datapoints.length || DIST <= 0)
