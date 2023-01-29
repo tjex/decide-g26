@@ -109,6 +109,7 @@ public class LIC_test {
     @Test
     public void checkIfValidGivesTrueLic11(){
         int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{2,0}};
+        Parameters.G_PTS = 3;
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(11));
     }
@@ -121,6 +122,7 @@ public class LIC_test {
     @Test
     public void checkIfInvalidGivesFalseLic11(){
         int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{4,0}};
+        Parameters.G_PTS = 3;
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(11));
     }
