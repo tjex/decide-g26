@@ -252,7 +252,7 @@ public class LIC_test {
      *  Test a set of invalid points which are expected to return false.
      */
     @Test()
-    public void test_lic6_invalid_points() {
+    public void test_lic8_invalid_points() {
         int[][] data_points_1 = new int[][] {{0, 2}, {1, 0}, {0, 0}, {3, 1}};
         int[][] data_points_2 = new int[][] {{3, 0}, {1, 1}, {0, 3}, {3, 4}};
         Parameters.A_PTS = 1;
