@@ -102,7 +102,54 @@ public class CMV {
         return false;
     }
 
-    private Boolean lic6_calculate() {
+    private boolean lic6_calculate() {
+        int N_PTS = Parameters.N_PTS;
+        double DIST = Parameters.DIST;
+        if(N_PTS < 3 || N_PTS > datapoints.length || DIST <= 0)
+            return false;
+        
+        // Go through each set of N_PTS consecutive points
+        for (int point = 0; point < datapoints.length - (N_PTS - 1); point++) {
+            // First and last point within the set of consecutive points
+            int p1 = point;
+            int p2 = Math.min(p1 + N_PTS - 1, datapoints.length - 1);
+            
+            // Coordinates for first and last point
+            int x1 = datapoints[p1][0];
+            int y1 = datapoints[p1][1];
+            int x2 = datapoints[p2][0];
+            int y2 = datapoints[p2][1];
+
+            // Condition when first and last are "identical".
+            // Due to p1 and p2 cannot have the same index, that require N_PTS be greater than 
+            // datapoints.length, I will treat identical as close enough within the plane.
+            double epsilon = 0.1;
+            if (Helper_Functions.euclidean_distance(datapoints[p1], datapoints[p2]) < epsilon) {
+                // Compare the distance to all other points. If the max distance
+                // is greater than DIST, return true.
+                double max_distance = -1;
+                for (int p = p1 + 1; p < p2; p++) {
+                    double d = Helper_Functions.euclidean_distance(datapoints[p], datapoints[p1]);
+                    if (d > max_distance)
+                        max_distance = d;
+                }
+                if (max_distance > DIST)
+                    return true;
+            }
+
+            // Line between p1-p2. Check all other points distance to line.
+            // If any set contains at least one point with distance greater than DIST, return true.
+            for (int p = p1 + 1; p < p2; p++) {
+                int x0 = datapoints[p][0];
+                int y0 = datapoints[p][1];
+                double distance = 
+                    Math.abs((x2 - x1) * (y1 - y0) - (x1 - x0) * (y2 -y1)) /
+                    Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+                if (distance > DIST)
+                    return true;
+            }
+        }
+
         return false;
     }
     
