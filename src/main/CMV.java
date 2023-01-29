@@ -1,6 +1,13 @@
 package main;
 
+<<<<<<< HEAD
 import java.util.Arrays;
+=======
+
+
+import java.util.Arrays;
+
+>>>>>>> 806033c083cd9ec5a1728b7e889c5c85972eb95f
 
 public class CMV {
     
@@ -64,8 +71,28 @@ public class CMV {
         return false;
     }
 
-    
-    private Boolean lic2_calculate() {
+    /*
+     * Takes three consecutive datapoints [I,J,K] and creates a angle where J becomes the vertex
+     * and J->I and J->K (through Helper_Functions.three_point_angle). This returns true if and
+     * only if the triplet of datapoints angle is less then PI - EPSILON or bigger than PI + EPSILON.
+     */
+    private boolean lic2_calculate() {
+        final double EPSILON = Parameters.EPSILON;
+        
+        for (int k = 2; k < datapoints.length; k++){ 
+            int j = k - 1;
+            int i = j - 1;
+            if(datapoints[j][0] == datapoints[i][0] && datapoints[j][1] == datapoints[i][1]){
+                return false;
+            }
+            else if(datapoints[j][0] == datapoints[k][0] && datapoints[j][1] == datapoints[k][1]){
+                return false;
+            }
+            double angle = Helper_Functions.three_point_angle(datapoints[i], datapoints[j], datapoints[k]) % (2*Math.PI);
+            if(angle < (Math.PI - EPSILON) || angle > (Math.PI + EPSILON)){
+                return true;
+            }
+        }
         return false;
     }
 
