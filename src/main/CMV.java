@@ -313,8 +313,36 @@ public class CMV {
     private Boolean lic13_calculate() {
         return false;
     }
-
+    /* 
+     * Returns a boolean which has two requirment to be true:
+     * 1. There exist a triplet of dataset i, j, k which make up a area bigger than AREA1
+     * 2. There exist a triplet of dataset i, j, k which make up a area smaller than AREA2.
+     * 
+     */
     private Boolean lic14_calculate() {
+        final int E_PTS = Parameters.E_PTS;
+        final int F_PTS = Parameters.F_PTS;
+        final double AREA1 = Parameters.AREA1;
+        final double AREA2 = Parameters.AREA2;
+        boolean checkA1 = false;
+        boolean checkA2 = false;
+        for(int i = 0; i < datapoints.length; i++){
+            int j = i + E_PTS + 1;
+            int k = i + F_PTS + 1;
+            if(j > datapoints.length - 1 || k > datapoints.length - 1){
+                break;
+            }
+            
+            if(Helper_Functions.triangle_vertex_area(datapoints[i],datapoints[j],datapoints[k]) > AREA1){
+                checkA1 = true;
+            }
+            if(Helper_Functions.triangle_vertex_area(datapoints[i],datapoints[j],datapoints[k]) < AREA2){
+                checkA2 = true;
+            }
+        }
+        if(checkA1 && checkA2){
+            return true;
+        }
         return false;
     }
     
