@@ -66,7 +66,23 @@ public class CMV {
     }
 
     
-    private Boolean lic2_calculate() {
+    private boolean lic2_calculate() {
+        final double EPSILON = Parameters.EPSILON;
+        
+        for (int k = 2; k < datapoints.length; k++){ 
+            int j = k - 1;
+            int i = j - 1;
+            if(datapoints[j][0] == datapoints[i][0] && datapoints[j][1] == datapoints[i][1]){
+                return false;
+            }
+            else if(datapoints[j][0] == datapoints[k][0] && datapoints[j][1] == datapoints[k][1]){
+                return false;
+            }
+            double angle = Helper_Functions.three_point_angle(datapoints[i], datapoints[j], datapoints[k]) % (2*Math.PI);
+            if(angle < (Math.PI - EPSILON) || angle > (Math.PI + EPSILON)){
+                return true;
+            }
+        }
         return false;
     }
 
