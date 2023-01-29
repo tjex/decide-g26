@@ -140,26 +140,26 @@ public class LIC_test {
     }
 
     /* LIC 11
-    *  G_PTS = 3
-    *  #Test wheter {3,0} and {2,0}, which are seperated by three datapoints, 
-        will yield true in the function lic11_calculate(). This since 2 - 3 < 0
-        which fullfills the requirment of being less than 0.  
+    *  Test wheter {3,0} and {2,0}, which are seperated by three datapoints, 
+    *  will yield true in the function lic11_calculate(). This since 2 - 3 < 0
+    *  which fullfills the requirment of being less than 0.  
     */
     @Test
     public void checkIfValidGivesTrueLic11(){
+        Parameters.G_PTS = 3;
         int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{2,0}};
         Parameters.G_PTS = 3;
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(11));
     }
     /* LIC 11
-    *  G_PTS = 3
-    *  #Test wheter {3,0} and {4,0}, which are seperated by three datapoints, 
-        will yield false in the function lic11_calculate(). This since 4 - 3 > 0
-        and function returns true on less than 0.  
+    *  Test wheter {3,0} and {4,0}, which are seperated by three datapoints, 
+    *  will yield false in the function lic11_calculate(). This since 4 - 3 > 0
+    *  and function returns true on less than 0.  
     */
     @Test
     public void checkIfInvalidGivesFalseLic11(){
+        Parameters.G_PTS = 3;
         int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{4,0}};
         Parameters.G_PTS = 3;
         CMV cmv = new CMV(datapoints);

@@ -265,7 +265,12 @@ public class CMV {
 
         return false;
     }
-
+    /*
+     * Return true if there exist a set of datapoints {I,J} that are seperated
+     * by G_PTS datapoints and fullfills the condition X[j] - X[I] < 0. Meaning
+     * the datapoints (I,J) x-axis subtracted as above has to be less than 0.
+     * If this condition is not fullfilled the function return false.  
+     */
     private boolean lic11_calculate() {
         if(datapoints.length < 3){
             return false;
