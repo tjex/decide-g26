@@ -56,7 +56,7 @@ Data from the `CMV` describes which of the `LIC` conditions have been met.
 Each time `CMV()` is called it calculates every `LIC` and fills the boolean result 
 into a vector, subsequently returning it for use later in the program.
 
-> data input: `int[][] lic`
+> data input: `int[][] lic`      
 > data output: `bool[] cmv`
 
 ```java
@@ -95,7 +95,7 @@ the `calculate_pum()` function in `src/main/PUM.java`.
 The `PUM` is built in order to provide input data to the Final Unlocking Vector (FUV) 
 outlined below.
 
-> data input: `int[][] lcm, bool[] cmv`
+> data input: `int[][] lcm, bool[] cmv`   
 > data output: `boolean[15][15] pum`
 
 
@@ -133,7 +133,7 @@ It is used to calculate the final issuance of the launch-unlock signal.
 Only if every element of the `FUV` is true, will the launch-unlock signal be generated at which 
 point the defensive projectile is cleared for launch.
 
-> data input: `boolean[] puv, boolean[][] pum`
+> data input: `boolean[] puv, boolean[][] pum`   
 > data output: `boolean[] fuv`
 
 ```java
@@ -157,10 +157,11 @@ We as a team agree that we have undertaken a successuful collaboration and learn
 a great deal from this assignment. None of us had worked in a collaborative codebase of 
 this size before, and on top of that, we began work the very same day that we met.
 
-We found that despite the short deadline we collaborated and coordinated efficiently as well as 
-maintaining a healthy and productive work environment. Each member of the group felt they were
+We found that despite the short deadline, and not knowing each other personally beforehand,
+we still collaborated and coordinated efficiently as well as 
+maintained a healthy and productive work environment. Each member of the group felt they were
 given equal opportunity to contribute both in written content (code and documentation) and 
-verbaly during meetings and in Discord.
+verbally during meetings and in Discord.
 
 We feel that what we managed to achieve in the short time we had to work on it is remarkable 
 given our lack of previous experience in such a scenario. For this we are proud. 
