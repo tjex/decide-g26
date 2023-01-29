@@ -126,48 +126,52 @@ public class LIC_test {
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(11));
     }
-    /*LIC 14
-    //-------------------------------------------------
-    */
-    /*
-     * Checks if two datapoints seperated by 2 will have a magnitude between 
-     * 2 and 5. This should return true since 2 (AREA1) < sqrt(18) < 5 (AREA2), 
-     * which are the requirments for lic12_calculate() to yield true.
+
+    /* LIC14
+     * -------------------------------------------------------------------------
+     * Test wheter the area made form 3 data points (i,j,k) is returning true.
+     * i = {-3,0}, j = {0,3}, k = {3,0}, where j is seperated by 1 and k by 3
+     * from current datapoint. This should return true since made area = 9,
+     * which is more than 4 (AREA1) and less than 10 (AREA2).
      */
     @Test
-    public void checkInvalidDistancebetweenLic12(){
-        Parameters.K_PTS = 2;
-        Parameters.LENGTH1 = 2;
-        Parameters.LENGTH2 = 5;
-        int[][] datapoints = {{0,0},{4,4},{0,0},{0,0},{1,1}};
+    public void checkAreaInBetweenIsTrue(){
+        Parameters.E_PTS = 1;
+        Parameters.F_PTS = 3;
+        Parameters.AREA1 = 4;
+        Parameters.AREA2 = 10;
+        int[][] datapoints = {{-3,0},{0,0},{0,3},{0,0},{3,0}};
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(14));
     }
-    /*
-     * Checks if two datapoints seperated by 2 will have a magnitude between 
-     * 2 and 5. This should return false since sqrt(32) > 5 (AREA2), 
-     * which dosen't fulfill the requirments of being less than AREA2.
+    /* LIC14
+     * Test wheter the area made form 3 data points (i,j,k) is returning false.
+     * i = {-6,0}, j = {0,6}, k = {6,0}, where j is seperated by 1 and k by 3
+     * from current datapoint. This should return false since made area = 36,
+     * which is more than 10 (AREA2).
      */
     @Test
-    public void checkInvalidDistanceOverLic12(){
-        Parameters.K_PTS = 2;
-        Parameters.LENGTH1 = 2;
-        Parameters.LENGTH2 = 5;
-        int[][] datapoints = {{0,0},{5,5},{0,0},{0,0},{1,1}};
+    public void checkAreaIsOverFalse(){
+        Parameters.E_PTS = 1;
+        Parameters.F_PTS = 3;
+        Parameters.AREA1 = 4;
+        Parameters.AREA2 = 10;
+        int[][] datapoints = {{-6,0},{0,0},{0,6},{0,0},{6,0}};
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(14));
     }
-    /*
-     * Checks if two datapoints seperated by 2 will have a magnitude between 
-     * 2 and 5. This should return false since sqrt(2) < 2 (AREA1), 
-     * which dosen't fulfill the requirments of being bigger than AREA1.
+    /* LIC14
+     * Test wheter the area made form 3 data points (i,j,k) is returning false.
+     * i = {-1,0}, j = {0,1}, k = {1,0}, where j is seperated by 1 and k by 3
+     * from current datapoint. This should return false since made area = 1,
+     * which is less than 4 (AREA1).
      */
-    @Test
-    public void checkInvalidDistanceUnderLic12(){
-        Parameters.K_PTS = 2;
-        Parameters.LENGTH1 = 2;
-        Parameters.LENGTH2 = 5;
-        int[][] datapoints = {{0,0},{2,2},{0,0},{0,0},{1,1}};
+    public void checkAreaIsUnderFalse(){
+        Parameters.E_PTS = 1;
+        Parameters.F_PTS = 3;
+        Parameters.AREA1 = 2;
+        Parameters.AREA2 = 5;
+        int[][] datapoints = {{-1,0},{0,0},{0,1},{0,1},{1,0}};
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(14));
     }
