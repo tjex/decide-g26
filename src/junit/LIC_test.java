@@ -89,7 +89,7 @@ public class LIC_test {
     public void checkIfValidGivesTrueLic5(){
         int[][] datapoints = {{4,0},{3,0},{2,0},{1,0},{0,0}};
         CMV cmv = new CMV(datapoints);
-        assertTrue(cmv.lic5_calculate());
+        assertTrue(cmv.get_cmv_value(5));
     }
     /* 
      * checks if datapoints of ascending order returns false. This 
@@ -101,7 +101,7 @@ public class LIC_test {
     public void checkIfInvalidGivesFalseLic5(){
         int[][] datapoints = {{0,0},{1,0},{2,0},{3,0},{4,0}};
         CMV cmv = new CMV(datapoints);
-        assertFalse(cmv.lic5_calculate());
+        assertFalse(cmv.get_cmv_value(5));
     }
 
     @Test
@@ -166,53 +166,45 @@ public class LIC_test {
         assertFalse(cmv.get_cmv_value(11));
     }
 
-    /* LIC14
-     * -------------------------------------------------------------------------
-     * Test wheter the area made form 3 data points (i,j,k) is returning true.
-     * i = {-3,0}, j = {0,3}, k = {3,0}, where j is seperated by 1 and k by 3
-     * from current datapoint. This should return true since made area = 9,
-     * which is more than 4 (AREA1) and less than 10 (AREA2).
+    /*LIC 12
+    //-------------------------------------------------
+     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
+     * 2 and 5. This should return true since index 1 and 4 gives magnitude 2 < sqrt(18) < 5
      */
     @Test
-    public void checkAreaInBetweenIsTrue(){
-        Parameters.E_PTS = 1;
-        Parameters.F_PTS = 3;
-        Parameters.AREA1 = 4;
-        Parameters.AREA2 = 10;
-        int[][] datapoints = {{-3,0},{0,0},{0,3},{0,0},{3,0}};
+    public void checkInvalidDistancebetweenLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{0,0},{4,4},{0,0},{0,0},{1,1}};
         CMV cmv = new CMV(datapoints);
-        assertTrue(cmv.get_cmv_value(14));
+        assertTrue(cmv.get_cmv_value(12));
     }
-    /* LIC14
-     * Test wheter the area made form 3 data points (i,j,k) is returning false.
-     * i = {-6,0}, j = {0,6}, k = {6,0}, where j is seperated by 1 and k by 3
-     * from current datapoint. This should return false since made area = 36,
-     * which is more than 10 (AREA2).
+    /*
+     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
+     * 2 and 5. This should return false since all magnitude is over 5. 
      */
     @Test
-    public void checkAreaIsOverFalse(){
-        Parameters.E_PTS = 1;
-        Parameters.F_PTS = 3;
-        Parameters.AREA1 = 4;
-        Parameters.AREA2 = 10;
-        int[][] datapoints = {{-6,0},{0,0},{0,6},{0,0},{6,0}};
+    public void checkInvalidDistanceOverLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{2,2},{2,2},{2,2},{10,10},{10,10}};
         CMV cmv = new CMV(datapoints);
-        assertFalse(cmv.get_cmv_value(14));
+        assertFalse(cmv.get_cmv_value(12));
     }
-    /* LIC14
-     * Test wheter the area made form 3 data points (i,j,k) is returning false.
-     * i = {-1,0}, j = {0,1}, k = {1,0}, where j is seperated by 1 and k by 3
-     * from current datapoint. This should return false since made area = 1,
-     * which is less than 4 (AREA1).
+    /*
+     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
+     * 2 and 5. This should return false since all magnitude is under 2. 
      */
-    public void checkAreaIsUnderFalse(){
-        Parameters.E_PTS = 1;
-        Parameters.F_PTS = 3;
-        Parameters.AREA1 = 2;
-        Parameters.AREA2 = 5;
-        int[][] datapoints = {{-1,0},{0,0},{0,1},{0,1},{1,0}};
+    @Test
+    public void checkInvalidDistanceUnderLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{0,0},{2,2},{0,0},{0,0},{1,1}};
         CMV cmv = new CMV(datapoints);
-        assertFalse(cmv.get_cmv_value(14));
+        assertFalse(cmv.get_cmv_value(12));
     }
 
     @Test
