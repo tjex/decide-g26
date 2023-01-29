@@ -3,6 +3,7 @@ package junit;
 import main.CMV;
 import main.Parameters;
 import org.junit.Test;
+import main.Parameters;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -229,4 +230,40 @@ public class LIC_test {
         cmv = new CMV(data_points);
         assertEquals(false, cmv.get_cmv_value(6));
     }
+
+    /**
+     *  LIC 8
+     *  Test a set of points which are expected to return true.
+     */
+    @Test()
+    public void test_lic8_valid_points() {
+        int[][] data_points = new int[][] {{3, 0}, {1, 1}, {0, 3}, {3, 4}, {-3,0}};
+
+        Parameters.A_PTS = 1;
+        Parameters.B_PTS = 1;
+        Parameters.RADIUS1 = 2;
+
+        CMV cmv = new CMV(data_points);
+        assertEquals(true, cmv.get_cmv_value(8));
+    }
+
+    /**
+     *  LIC 8
+     *  Test a set of invalid points which are expected to return false.
+     */
+    @Test()
+    public void test_lic8_invalid_points() {
+        int[][] data_points_1 = new int[][] {{0, 2}, {1, 0}, {0, 0}, {3, 1}};
+        int[][] data_points_2 = new int[][] {{3, 0}, {1, 1}, {0, 3}, {3, 4}};
+        Parameters.A_PTS = 1;
+        Parameters.B_PTS = 1;
+        Parameters.RADIUS1 = 10;
+
+        CMV cmv = new CMV(data_points_1);
+        assertEquals(false, cmv.get_cmv_value(8));
+
+        cmv = new CMV(data_points_2);
+        assertEquals(false, cmv.get_cmv_value(8));
+    }
+
 }
