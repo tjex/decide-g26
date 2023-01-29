@@ -23,4 +23,38 @@ public class Helper_Functions {
     public static double euclidean_distance(int[] a, int[] b){
         return Math.sqrt(Math.pow((b[0]-a[0]), 2) + Math.pow((b[1]-a[1]), 2));
     }
+
+    //returns vector magnitude, not rounded 
+    public static double vector_magnitude(int[] a){
+        int[] origin = {0,0};
+        double dist = euclidean_distance(a, origin);
+        return dist;
+    }
+
+    public static int dot_product(int[] a, int[] b){
+        return (a[0]*b[0])+(a[1]*b[1]);
+    }
+
+    //returns a vector pointing towards the vector a
+    public static int[] vector_subtraction(int[] a, int[] b){
+        int[] out = {a[0]-b[0], a[1]-b[1]};
+        return out;
+    }
+
+    //from three points, where the middle argument is the vertex and the other two are the ends of rays from that vertex
+    //return the angle  (in radians!) between those rays
+    public static double three_point_angle(int[] ray_end_1, int[] vertex, int[] ray_end_2){
+        int[] vector1 = vector_subtraction(ray_end_1, vertex);
+        int[] vector2 = vector_subtraction(ray_end_2, vertex);
+        
+        double fraction = (dot_product(vector1, vector2))/(vector_magnitude(vector1)*vector_magnitude(vector2));
+        double angle = Math.acos(fraction);
+
+        return angle;
+    }
+
+    //returns the area of a triangle given its three vertices as input
+    public static double triangle_vertex_area(int[] first, int[] second, int[] third){
+        return ((double) 1/2) * (Math.abs(first[0]*(second[1]-third[1])+second[0]*(third[1]-first[1])+third[0]*(first[1]-second[1])));
+    }
 }
