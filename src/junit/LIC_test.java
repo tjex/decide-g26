@@ -3,6 +3,7 @@ package junit;
 import main.CMV;
 import main.Parameters;
 import org.junit.Test;
+import main.Parameters;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -18,6 +19,45 @@ public class LIC_test {
         assertTrue(cmv.get_cmv_value(5));
     }
     
+
+    /*LIC 2
+    * -------------------------------------------------
+    * Checks the condition angle < PI-EPSILON = (3/4)*PI, which is bigger 
+    * than 90 degress = PI/2. This should return true since condition is meet.
+    */
+
+    @Test
+    public void checkValid90DegreeAngleUnderLic2(){
+        Parameters.EPSILON = Math.PI / 4;
+        int[][] datapoints = {{0,1},{0,0},{1,0}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(2));
+    }
+    /*
+    * Checks the condition angle > PI+EPSILON => angle > (5/4)*PI. Since the 
+    * angle is 270 degress = (3/2)*pi, the condition is meet and the test
+    * should return true.
+    */
+    @Test
+    public void checkValid270DegreeAngleOverLic2(){
+        Parameters.EPSILON = Math.PI / 4;
+        int[][] datapoints = {{0,-1},{0,0},{1,0}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(2));
+    }
+    /*
+    * Checks both test since the angle is set to 180 degress = pi. 
+    * The angle is both bigger than PI-EPSILON (3/4*PI) and smaller
+    * than PI+EPSILON (5/4*PI) which leaves both conditions unfullfilled.
+    * Therefore the test should return false.
+    */
+    @Test
+    public void checkInvalid180DegreeAngleLic2(){
+        Parameters.EPSILON = Math.PI / 4;
+        int[][] datapoints = {{-1,0},{0,0},{1,0}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(2));
+    }
 
     @Test
     public void test_lic3(){
@@ -137,6 +177,7 @@ public class LIC_test {
     @Test
     public void checkIfValidGivesTrueLic11(){
         int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{2,0}};
+        Parameters.G_PTS = 3;
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(11));
     }
@@ -149,8 +190,50 @@ public class LIC_test {
     @Test
     public void checkIfInvalidGivesFalseLic11(){
         int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{4,0}};
+        Parameters.G_PTS = 3;
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(11));
+    }
+
+    /*LIC 12
+    //-------------------------------------------------
+     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
+     * 2 and 5. This should return true since index 1 and 4 gives magnitude 2 < sqrt(18) < 5
+     */
+    @Test
+    public void checkInvalidDistancebetweenLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{0,0},{4,4},{0,0},{0,0},{1,1}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(12));
+    }
+    /*
+     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
+     * 2 and 5. This should return false since all magnitude is over 5. 
+     */
+    @Test
+    public void checkInvalidDistanceOverLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{2,2},{2,2},{2,2},{10,10},{10,10}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(12));
+    }
+    /*
+     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
+     * 2 and 5. This should return false since all magnitude is under 2. 
+     */
+    @Test
+    public void checkInvalidDistanceUnderLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{0,0},{2,2},{0,0},{0,0},{1,1}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(12));
     }
 
     @Test
@@ -176,6 +259,7 @@ public class LIC_test {
         //E_PTS and F_PTS points apart
         assertFalse(cmv3.get_cmv_value(10));
     }
+
 
     /**
      *  LIC 6
@@ -258,4 +342,41 @@ public class LIC_test {
         cmv = new CMV(data_points);
         assertEquals(false, cmv.get_cmv_value(6));
     }
+
+
+    /**
+     *  LIC 8
+     *  Test a set of points which are expected to return true.
+     */
+    @Test()
+    public void test_lic8_valid_points() {
+        int[][] data_points = new int[][] {{3, 0}, {1, 1}, {0, 3}, {3, 4}, {-3,0}};
+
+        Parameters.A_PTS = 1;
+        Parameters.B_PTS = 1;
+        Parameters.RADIUS1 = 2;
+
+        CMV cmv = new CMV(data_points);
+        assertEquals(true, cmv.get_cmv_value(8));
+    }
+
+    /**
+     *  LIC 8
+     *  Test a set of invalid points which are expected to return false.
+     */
+    @Test()
+    public void test_lic8_invalid_points() {
+        int[][] data_points_1 = new int[][] {{0, 2}, {1, 0}, {0, 0}, {3, 1}};
+        int[][] data_points_2 = new int[][] {{3, 0}, {1, 1}, {0, 3}, {3, 4}};
+        Parameters.A_PTS = 1;
+        Parameters.B_PTS = 1;
+        Parameters.RADIUS1 = 10;
+
+        CMV cmv = new CMV(data_points_1);
+        assertEquals(false, cmv.get_cmv_value(8));
+
+        cmv = new CMV(data_points_2);
+        assertEquals(false, cmv.get_cmv_value(8));
+    }
+
 }

@@ -1,6 +1,8 @@
 package main;
 
+
 import java.util.ArrayList;
+
 import java.util.Arrays;
 
 
@@ -68,7 +70,23 @@ public class CMV {
     }
 
     
-    private Boolean lic2_calculate() {
+    private boolean lic2_calculate() {
+        final double EPSILON = Parameters.EPSILON;
+        
+        for (int k = 2; k < datapoints.length; k++){ 
+            int j = k - 1;
+            int i = j - 1;
+            if(datapoints[j][0] == datapoints[i][0] && datapoints[j][1] == datapoints[i][1]){
+                return false;
+            }
+            else if(datapoints[j][0] == datapoints[k][0] && datapoints[j][1] == datapoints[k][1]){
+                return false;
+            }
+            double angle = Helper_Functions.three_point_angle(datapoints[i], datapoints[j], datapoints[k]) % (2*Math.PI);
+            if(angle < (Math.PI - EPSILON) || angle > (Math.PI + EPSILON)){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -214,7 +232,28 @@ public class CMV {
         return false;
     }
 
-    private Boolean lic8_calculate() {
+    private boolean lic8_calculate() {
+        //The condition is not met when NUMPOINTS < 5.
+        if(this.datapoints.length < 5){
+            return false;
+        }
+
+        for (int i = 0; i < this.datapoints.length-Parameters.A_PTS-Parameters.B_PTS - 2; i++) {
+            int p2_index = i + Parameters.A_PTS + 1;
+            int p3_index = p2_index + Parameters.B_PTS + 1;
+
+            int[] p1 = this.datapoints[i];
+            int[] p2 = this.datapoints[p2_index];
+            int[] p3 = this.datapoints[p3_index];
+            double radius = Helper_Functions.circumscribed_circle_radius(p1,p2,p3);
+
+            // if the radius of the circle going through all the points is larger than RADIUS1
+            // the points can't be contained within a circle with RADIUS
+            if (radius > Parameters.RADIUS1){
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -227,10 +266,6 @@ public class CMV {
 
         boolean length_cond = Parameters.C_PTS + Parameters.D_PTS <= datapoints.length - 3;
         boolean bound_cond = 1 <= Parameters.C_PTS && 1<= Parameters.D_PTS;
-
-        if(!(length_cond && bound_cond)){
-            System.exit(1);
-        }
 
         if(datapoints.length < 5){
             return false;
@@ -307,7 +342,29 @@ public class CMV {
         return false;
     }
     
-    private Boolean lic12_calculate() {
+    public boolean lic12_calculate() {
+        boolean checkBigger = false;
+        boolean checkSmaller = false;
+        final int K_PTS = Parameters.K_PTS;
+        final double LENGTH1 = Parameters.LENGTH1;
+        final double LENGTH2 = Parameters.LENGTH2;
+        for(int i = 0; i < datapoints.length; i++){
+            int j = i + K_PTS + 1;
+            if (j > datapoints.length - 1){
+                break;
+            }
+            int[] vectorIJ = Helper_Functions.vector_subtraction(datapoints[j],datapoints[i]);    
+            double magnitudeIJ = Helper_Functions.vector_magnitude(vectorIJ);                   
+            if(magnitudeIJ > LENGTH1){
+                checkBigger = true;
+            }
+            if(magnitudeIJ < LENGTH2){
+                checkSmaller = true;
+            }
+        }
+        if(checkSmaller && checkBigger){
+            return true;
+        }
         return false;
     }
 
