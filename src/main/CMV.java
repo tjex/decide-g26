@@ -87,7 +87,11 @@ public class CMV {
     private Boolean lic4_calculate() {
         return false;
     }
-
+    /*
+     * Returns true if two adjecent datapoints I and I+1 fullfills the
+     * condition datapoints[I+1][0] - datapoints[I][0] < 0. These values
+     * corresponds to the x-axis. If condition not meet return false. 
+     */
     private boolean lic5_calculate() {
         for (int j = 1; j < datapoints.length; j++){ 
             int i = j - 1;

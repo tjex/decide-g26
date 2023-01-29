@@ -38,16 +38,26 @@ public class LIC_test {
         assertFalse(cmv3.get_cmv_value(3));
         
     }
-    //LIC 5
+    /* LIC 5
+     * --------------------------------------------------------------
+     * checks if datapoints of descending order returns true. This 
+     * fullfills the requirments of Lic 5 condition since descending
+     * value on x-axis fullfills datapoint[i+1][0] - datapoint[i][0] < 0.
+     */
     @Test
-    public void checkIfValidGivesTrue(){
+    public void checkIfValidGivesTrueLic5(){
         int[][] datapoints = {{4,0},{3,0},{2,0},{1,0},{0,0}};
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(5));
     }
-    //LIC 5
+    /* 
+     * checks if datapoints of ascending order returns false. This 
+     * doesn't fullfill the requirments of Lic 5 condition since ascending
+     * value on x-axis givs datapoint[i+1][0] - datapoint[i][0] > 0. Since 
+     * condition is not fullfilled lic5_calculate() should return false.
+    */ 
     @Test
-    public void checkIfInvalidGivesFalse(){
+    public void checkIfInvalidGivesFalseLic5(){
         int[][] datapoints = {{0,0},{1,0},{2,0},{3,0},{4,0}};
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(5));
