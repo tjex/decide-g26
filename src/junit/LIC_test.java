@@ -166,6 +166,47 @@ public class LIC_test {
         assertFalse(cmv.get_cmv_value(11));
     }
 
+    /*LIC 12
+    //-------------------------------------------------
+     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
+     * 2 and 5. This should return true since index 1 and 4 gives magnitude 2 < sqrt(18) < 5
+     */
+    @Test
+    public void checkInvalidDistancebetweenLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{0,0},{4,4},{0,0},{0,0},{1,1}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(12));
+    }
+    /*
+     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
+     * 2 and 5. This should return false since all magnitude is over 5. 
+     */
+    @Test
+    public void checkInvalidDistanceOverLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{2,2},{2,2},{2,2},{10,10},{10,10}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(12));
+    }
+    /*
+     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
+     * 2 and 5. This should return false since all magnitude is under 2. 
+     */
+    @Test
+    public void checkInvalidDistanceUnderLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{0,0},{2,2},{0,0},{0,0},{1,1}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(12));
+    }
+
     @Test
     public void test_lic_10(){
         Parameters.E_PTS = 2;
