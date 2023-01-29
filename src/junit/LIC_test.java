@@ -458,6 +458,77 @@ public class LIC_test {
         assertEquals(false, cmv.get_cmv_value(8));
     }
 
+    /*LIC 13
+    //-------------------------------------------------
+            Test that invalid data returns false
+            Data has to follow the following requirements:
+            1. 5 <= NUMPOINTS
+     */
+    @Test
+    public void check_lic13_input_requirements(){
+        int[][] data_points_1 = new int[][] {{0, 2}, {1, 0}, {0, 0}};
+
+        Parameters.A_PTS = 1;
+        Parameters.B_PTS = 1;
+        Parameters.RADIUS1 = 2;
+
+        CMV cmv = new CMV(data_points_1);
+        assertEquals(false, cmv.get_cmv_value(13));
+    }
+
+
+    /*
+        Test that invalid data returns false
+        The following is required for valid data:
+        1.  There exists at least one set of three data points,
+            separated by exactly A PTS and B PTS consecutive intervening points
+            that cannot be contained within or on a circle of radius RADIUS1.
+        2.  There exists at least one set of three data points,
+            separated by exactly A PTS and B PTS consecutive intervening points
+            that can be contained in or on a circle of radius RADIUS2.
+
+     */
+    @Test
+    public void check_lic13_invalid_data_returns_false(){
+        // Only set of data points seperated by A and B points is ((0,3),(3,0),(-3,0))
+        // The set can be contained by a circle of radius 3 minimum.
+        int[][] data_points= new int[][] {{0, 3}, {1, 0}, {3, 0}, {0,9}, {-3, 0}};
+
+        Parameters.A_PTS = 1;
+        Parameters.B_PTS = 1;
+        Parameters.RADIUS1 = 6;
+        Parameters.RADIUS2 = 7;
+
+        CMV cmv = new CMV(data_points);
+        assertEquals(false, cmv.get_cmv_value(13));
+    }
+
+    /*
+        Test that invalid data returns false
+        The following is required for valid data:
+        1.  There exists at least one set of three data points,
+            separated by exactly A PTS and B PTS consecutive intervening points
+            that cannot be contained within or on a circle of radius RADIUS1.
+        2.  There exists at least one set of three data points,
+            separated by exactly A PTS and B PTS consecutive intervening points
+            that can be contained in or on a circle of radius RADIUS2.
+
+     */
+    @Test
+    public void check_lic13_valid_data_returns_true(){
+        // Only set of data points seperated by A and B points is ((0,3),(3,0),(-3,0))
+        // The set can be contained by a circle of radius 3 minimum.
+        int[][] data_points= new int[][] {{0, 3}, {1, 0}, {3, 0}, {0,9}, {-3, 0}};
+
+        Parameters.A_PTS = 1;
+        Parameters.B_PTS = 1;
+        Parameters.RADIUS1 = 2;
+        Parameters.RADIUS2 = 7;
+
+        CMV cmv = new CMV(data_points);
+        assertEquals(true, cmv.get_cmv_value(13));
+
+    }
 
 
 }
