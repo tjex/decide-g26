@@ -110,11 +110,6 @@ public class CMV {
             return false;
         }
 
-        if (Parameters.A_PTS < 1 || Parameters.B_PTS < 1 ||
-                Parameters.A_PTS+Parameters.B_PTS > (datapoints.length-3)){
-            return false;
-        }
-
         for (int i = 0; i < this.datapoints.length-Parameters.A_PTS-Parameters.B_PTS - 2; i++) {
             int p2_index = i + Parameters.A_PTS + 1;
             int p3_index = p2_index + Parameters.B_PTS + 1;
