@@ -105,7 +105,7 @@ public class LIC_test {
     }
     
     /* LIC 7
-    *  -----------------------------------------------------------------------------------------
+    *  ------------------------------------------------------------------------------------------
     *  Checks if index 0 and index 4 both satisfied the two conditions of lic7_calculate:
     *  1. index has to be seperated by K_PTS = 3 => true for datasets.
     *  2. the distance created with the two datapoints > LENGTH1 => 8 > 2
