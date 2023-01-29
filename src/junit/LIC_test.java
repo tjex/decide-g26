@@ -18,6 +18,7 @@ public class LIC_test {
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(5));
     }
+    
 
     /*LIC 2
     * -------------------------------------------------
@@ -79,6 +80,34 @@ public class LIC_test {
         assertFalse(cmv3.get_cmv_value(3));
         
     }
+    /* LIC 4
+     * -------------------------------------------------------------------------
+     * Take the whole set of datapoints {{1,1},{-1,1},{-1,-1}}, which belong to
+     * 3 unique quadrants. This should return true since it's 3 distinct quadrants,
+     * which is equal to QUADS.
+     */
+    @Test
+    public void checkIfValidGivesTrueLic4(){
+        Parameters.Q_PTS = 3;
+        Parameters.QUADS = 3;
+        int[][] datapoints = {{1,1},{-1,1},{-1,-1}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(4));
+    }
+    /* LIC 4
+     * Take the whole set of datapoints {{1,1},{0,-1},{-1,-1}, which belong to
+     * 2 unique quadrants. This should return false since it's 2 distinct quadrants,
+     * which is not equal to QUADS.
+     */
+    @Test
+    public void checkIfInvalidGivesFalseLic4(){
+        Parameters.Q_PTS = 3;
+        Parameters.QUADS = 3;
+        int[][] datapoints = {{1,1},{0,-1},{-1,-1}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(4));
+    }
+
     /* LIC 5
      * --------------------------------------------------------------
      * checks if datapoints of descending order returns true. This 
@@ -393,6 +422,7 @@ public class LIC_test {
         assertEquals(false, cmv.get_cmv_value(6));
     }
 
+
     /**
      *  LIC 8
      *  Test a set of points which are expected to return true.
@@ -429,5 +459,5 @@ public class LIC_test {
     }
 
 
-}
 
+}
