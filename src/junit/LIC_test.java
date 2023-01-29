@@ -112,4 +112,28 @@ public class LIC_test {
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(11));
     }
+
+    @Test
+    public void test_lic_10(){
+        Parameters.E_PTS = 2;
+        Parameters.F_PTS = 3;
+        Parameters.AREA1 = 14;
+
+        int[][] datapoints1 = {{-4,0}, {0,0}, {0,0}, {4,0}, {0,0}, {0,0}, {0,0}, {0,4}, {0,0}};
+        CMV cmv1 = new CMV(datapoints1);
+
+        int[][] datapoints2 = {{-1,0}, {0,0}, {0,0}, {1,0}, {0,0}, {0,0}, {0,0}, {0,4}, {0,0}};
+        CMV cmv2 = new CMV(datapoints2);
+
+        int[][] datapoints3 = {{-4,0}, {0,0}, {0,0}, {0,0}, {4,0}, {0,0}, {0,0}, {0,4}, {0,0}};
+        CMV cmv3 = new CMV(datapoints3);
+
+        //this should pass, we have a triangle with area 16 which is bigger than AREA1=14
+        assertTrue(cmv1.get_cmv_value(10));
+        //this should fail, we have a triangle with area 4
+        assertFalse(cmv2.get_cmv_value(10));
+        //this should fail, the area is correct however, the points are not spaced exactly with
+        //E_PTS and F_PTS points apart
+        assertFalse(cmv3.get_cmv_value(10));
+    }
 }
