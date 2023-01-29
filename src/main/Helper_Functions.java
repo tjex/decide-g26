@@ -52,4 +52,9 @@ public class Helper_Functions {
 
         return angle;
     }
+
+    //returns the area of a triangle given its three vertices as input
+    public static double triangle_vertex_area(int[] first, int[] second, int[] third){
+        return ((double) 1/2) * (Math.abs(first[0]*(second[1]-third[1])+second[0]*(third[1]-first[1])+third[0]*(first[1]-second[1])));
+    }
 }
