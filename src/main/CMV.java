@@ -70,12 +70,12 @@ public class CMV {
     }
 
     private boolean lic3_calculate() {
-        for (int i = 0; i < datapoints.length - 2; i += 3) {
+        for (int i = 0; i < datapoints.length - 2; i++) {
             int[] first = datapoints[i];
             int[] second = datapoints[i + 1];
             int[] third = datapoints[i + 2];
             
-            double area = ((double) 1/2) * (Math.abs(first[0]*(second[1]-third[1])+second[0]*(third[1]-first[1])+third[0]*(first[1]-second[1])));
+            double area = Helper_Functions.triangle_vertex_area(first, second, third);
 
             if(area > Parameters.AREA1){
                 return true;
@@ -155,7 +155,29 @@ public class CMV {
         return false;
     }
 
-    private Boolean lic10_calculate() {
+    private boolean lic10_calculate() {
+
+        int points_bound = Parameters.E_PTS + Parameters.F_PTS + 2;
+
+        if(datapoints.length < 5){
+            return false;
+        }
+
+        for (int i = 0; i < datapoints.length - points_bound ; i += 1) {
+           
+            int second_point_location = i + Parameters.E_PTS + 1 ;
+            int third_point_location = second_point_location + Parameters.F_PTS + 1 ;
+            
+            int[] first = datapoints[i];
+            int[] second = datapoints[second_point_location];
+            int[] third = datapoints[third_point_location];
+
+            if(Helper_Functions.triangle_vertex_area(first, second, third) > Parameters.AREA1){
+                return true;
+            }
+
+        }
+
         return false;
     }
 
