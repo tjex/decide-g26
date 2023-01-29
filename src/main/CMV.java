@@ -1,6 +1,13 @@
 package main;
 
+<<<<<<< HEAD
 import java.util.Arrays;
+=======
+
+
+import java.util.Arrays;
+
+>>>>>>> 806033c083cd9ec5a1728b7e889c5c85972eb95f
 
 public class CMV {
     

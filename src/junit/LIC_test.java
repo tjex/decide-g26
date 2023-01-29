@@ -76,7 +76,7 @@ public class LIC_test {
         assertFalse(cmv2.get_cmv_value(3));
         //If datapoints are not consecutive it should fail 
         assertFalse(cmv3.get_cmv_value(3));
-        
+
     }
     //LIC 5
     @Test
