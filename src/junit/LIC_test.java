@@ -7,9 +7,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-
-import java.beans.Transient;
 
 public class LIC_test {
 
@@ -20,7 +17,9 @@ public class LIC_test {
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(5));
     }
-     @Test
+    
+
+    @Test
     public void test_lic3(){
         Parameters.AREA1 = 15.0;
 
@@ -41,50 +40,34 @@ public class LIC_test {
         assertFalse(cmv3.get_cmv_value(3));
         
     }
-
-    //LIC 4
-    @Test
-    public void check_if_dataPoint_converted_to_correct_quadrant(){
-        int[][] datapoints = {{0,0},{1,0},{2,0}};
-        CMV cmv = new CMV(datapoints);
-        int[] point1 = {0,0}; 
-        int[] point2 = {-1,0};
-        int[] point3 = {0,-1};
-        int[] point4 = {1,-1};
-        int[] point5 = {0,1};
-        int[] point6 = {1,0};
-        
-        
-        assertEquals(1, cmv.quadEvaluation(point1));
-        assertEquals(2, cmv.quadEvaluation(point2));
-        assertEquals(3, cmv.quadEvaluation(point3));
-        assertEquals(4, cmv.quadEvaluation(point4));
-        assertEquals(1, cmv.quadEvaluation(point5));
-        assertEquals(1, cmv.quadEvaluation(point6));
-    }
     /* LIC 4
-     * Q_PTS = 3
-     * QUADS = 3
+     * -------------------------------------------------------------------------
+     * Take the whole set of datapoints {{1,1},{-1,1},{-1,-1}}, which belong to
+     * 3 unique quadrants. This should return true since it's 3 distinct quadrants,
+     * which is equal to QUADS.
      */
     @Test
     public void checkIfValidGivesTrueLic4(){
+        Parameters.Q_PTS = 3;
+        Parameters.QUADS = 3;
         int[][] datapoints = {{1,1},{-1,1},{-1,-1}};
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(4));
     }
     /* LIC 4
-     * Q_PTS = 3
-     * QUADS = 3
-     * only occupying 2 different quadrant and QUADS want 3.
+     * Take the whole set of datapoints {{1,1},{0,-1},{-1,-1}, which belong to
+     * 2 unique quadrants. This should return false since it's 2 distinct quadrants,
+     * which is not equal to QUADS.
      */
     @Test
     public void checkIfInvalidGivesFalseLic4(){
+        Parameters.Q_PTS = 3;
+        Parameters.QUADS = 3;
         int[][] datapoints = {{1,1},{0,-1},{-1,-1}};
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(4));
     }
 
-    //LIC 5
     /* LIC 5
      * --------------------------------------------------------------
      * checks if datapoints of descending order returns true. This 

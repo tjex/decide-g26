@@ -87,32 +87,16 @@ public class CMV {
         return false;
     }
 
-    private Boolean lic4_calculate() {
-        final int Q_PTS = Parameters.Q_PTS;
-        final int QUADS = Parameters.QUADS;
-        int quadrant;
-        ArrayList<Integer> quadrants = new ArrayList<>(3);
-        for (int i = 0; i < datapoints.length; i++){ 
-            quadrants.add(quadEvaluation(datapoints[i]));
-            for (int j = i+1; j < i + Q_PTS; j++){
-                if(j > datapoints.length - 1){
-                    continue;
-                }
-                if(quadrants.size() == QUADS){
-                    return true;
-                }
-                quadrant = quadEvaluation(datapoints[j]);
-                if(!quadrants.contains(quadrant)){
-                    quadrants.add(quadrant);
-                }
-            }
-            System.out.println(quadrants);
-            if(quadrants.size() == QUADS){
-                return true;
-            }
-            quadrant = -1;
-            quadrants.clear();
-        }
+    /*
+     * Return true if Q_PTS consecutive datapoints lie in QUAD different quadrants.
+     * This is done through having a nested for loop which takes a set of datapoints
+     * of size Q_PTS and iterates through them. Each unique beloning quadrant is stored
+     * in a ArrayList where the size of it gets compared to QUAD. If the size = QUAD return
+     * true, else continue or return false.   
+     * 
+     */
+
+     private Boolean lic4_calculate() {
         final int Q_PTS = Parameters.Q_PTS;
         final int QUADS = Parameters.QUADS;
         int quadrant;
@@ -139,6 +123,26 @@ public class CMV {
             quadrants.clear();
         }
         return false;
+    }
+    
+    /*
+     * @param int[] datapoint 
+     * Takes in a datapoint and determines which quadrant it belongs to.
+     * Returns a int between 1-4.
+     */
+    public int quadEvaluation(int[] datapoint){
+        if(datapoint[0] >= 0 && datapoint[1] >= 0){
+            return 1;
+        }
+        else if(datapoint[0] <= 0 && datapoint[1] >= 0){
+            return 2;
+        }
+        else if(datapoint[0] <= 0 && datapoint[1] <= 0){
+            return 3;
+        }
+        else{
+            return 4;
+        }
     }
     /*
      * Returns true if two adjecent datapoints I and I+1 fullfills the
