@@ -85,4 +85,13 @@ public class Helper_Function_Test {
         assertEquals(origin_angle, three_point_angle, 0.01);
         assertEquals(three_point_angle, 1.008, 0.01);
     }
+
+    @Test
+    public void test_triangle_vertex_area(){
+        int[] a1 = {-4,0};
+        int[] b1 = {4,0};
+        int[] c1 = {0,4};
+
+        assertEquals(Helper_Functions.triangle_vertex_area(a1, b1, c1), 16, 0.1);
+    }
 }
