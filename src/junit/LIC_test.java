@@ -96,6 +96,7 @@ public class LIC_test {
         assertFalse(cmv.get_cmv_value(7));
     }
 
+
     @Test
     public void test_lic9(){
         Parameters.EPSILON = 0.5; //is this safe? will it set globally or just for this test?
@@ -296,5 +297,6 @@ public class LIC_test {
         cmv = new CMV(data_points_2);
         assertEquals(false, cmv.get_cmv_value(8));
     }
+
 
 }
