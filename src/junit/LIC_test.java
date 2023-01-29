@@ -103,6 +103,38 @@ public class LIC_test {
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(5));
     }
+    
+    /* LIC 7
+    *  ------------------------------------------------------------------------------------------
+    *  Checks if index 0 and index 4 both satisfied the two conditions of lic7_calculate:
+    *  1. index has to be seperated by K_PTS = 3 => true for datasets.
+    *  2. the distance created with the two datapoints > LENGTH1 => 8 > 2
+    *  Since both conditions is fullfilled the test should be asserted to true.
+    */
+    @Test
+    public void checkIfValidGivesTrueLic7(){
+        Parameters.K_PTS = 3;
+        Parameters.LENGTH1 = 2;
+        int[][] datapoints = {{1,0},{0,0},{0,0},{0,0},{5,0}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(7));
+    }
+
+    /* LIC 7
+    *  Checks if index 0 and index 4 both satisfies the two conditions of lic7_calculate:
+    *  1. index has to be seperated by K_PTS = 3 => true for datasets.
+    *  2. the distance created with the two datapoints > LENGTH1 => sqrt(2) < 2 
+    *  Since both conditions isn't fullfilled the test should be asserted to false.
+    */
+    @Test
+    public void checkIfInvalidGivesFalseLic7(){
+        Parameters.K_PTS = 3;
+        Parameters.LENGTH1 = 2;
+        int[][] datapoints = {{0,1},{0,0},{0,0},{0,0},{1,0}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(7));
+    }
+
 
     @Test
     public void test_lic9(){
@@ -396,6 +428,7 @@ public class LIC_test {
         cmv = new CMV(data_points_2);
         assertEquals(false, cmv.get_cmv_value(8));
     }
+
 
 }
 

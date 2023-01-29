@@ -169,8 +169,30 @@ public class CMV {
 
         return false;
     }
+    /*
+     * Returns true if there exist two datapoints (I,J), seperated by K_PTS datapoints,
+     * that are at a distance greater than LENGTH1. 
+     */
     
-    private Boolean lic7_calculate() {
+    private boolean lic7_calculate() {
+        
+        final int K_PTS = Parameters.K_PTS;
+        final double LENGTH1 = Parameters.LENGTH1;
+        if(datapoints.length < 3){
+            return false;
+        }
+        for(int i = 0; i < datapoints.length; i++){
+            int j = i + K_PTS + 1;
+            if(j > datapoints.length - 1){
+                break;
+            }
+            
+            int[] vectorIJ = Helper_Functions.vector_subtraction(datapoints[j],datapoints[i]);
+            double magnitudeIJ = Helper_Functions.vector_magnitude(vectorIJ);
+            if(magnitudeIJ > LENGTH1){
+                return true;
+            }
+        }
         return false;
     }
 
