@@ -368,7 +368,14 @@ public class CMV {
         }
         return false;
     }
-    
+    /* 
+     * The function returns true if both checkBigger and checkSmaller is true:
+     * 1. checkBigger is true if there exist two datapoints, seperated by K_PTS
+     * datapoints, has a magnitude > LENGTH1.
+     * 2. checkSmaller is true if there exist two datapoints, seperated by K_PTS
+     * datapoints, has a magnitude < LENGTH2.
+     * Returns false if 1. or 2. is not meet.
+     */
     public boolean lic12_calculate() {
         boolean checkBigger = false;
         boolean checkSmaller = false;
