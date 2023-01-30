@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-- [What is this Project?](#What-is-this-Project?)   
+- [What is this Project?](#What-is-this-Project)   
 - [How it Works](#How-it-Works)   
 - [Input Data](#Input-Data)   
     - [Launch Interceptor Conditions (LIC)](#Launch-Interceptor-Conditions-lic)   
