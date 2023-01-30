@@ -402,9 +402,52 @@ public class CMV {
         return false;
     }
 
+    /*
+        Returns true if the following requirements are fulfilled:
+        1.  There exists at least one set of three data points,
+            separated by exactly A PTS and B PTS consecutive intervening points
+            that cannot be contained within or on a circle of radius RADIUS1.
+        2.  There exists at least one set of three data points,
+            separated by exactly A PTS and B PTS consecutive intervening points
+            that can be contained in or on a circle of radius RADIUS2.
+        3.  NUMPOINTS > 5
+     */
     private Boolean lic13_calculate() {
+        if(datapoints.length < 5){
+            return false;
+        }
+
+        boolean requirement_1 = false;
+        boolean requirement_2 = false;
+
+        for (int i = 0; i < this.datapoints.length-Parameters.A_PTS-Parameters.B_PTS - 2; i++) {
+            int p2_index = i + Parameters.A_PTS + 1;
+            int p3_index = p2_index + Parameters.B_PTS + 1;
+
+            int[] p1 = this.datapoints[i];
+            int[] p2 = this.datapoints[p2_index];
+            int[] p3 = this.datapoints[p3_index];
+            double radius = Helper_Functions.circumscribed_circle_radius(p1,p2,p3);
+
+            // if the radius of the circle going through all the points is larger than RADIUS1
+            // the points can't be contained within a circle with RADIUS
+            if (radius > Parameters.RADIUS1){
+                requirement_1 = true;
+            }
+
+            if(radius <= Parameters.RADIUS2){
+                requirement_2 = true;
+            }
+
+            if(requirement_1 && requirement_2){
+                return true;
+            }
+        }
+
+
         return false;
     }
+
     /* 
      * Returns a boolean which has two requirment to be true:
      * 1. There exist a triplet of dataset i, j, k which make up a area bigger than AREA1
