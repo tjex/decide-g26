@@ -26,16 +26,16 @@ public class LIC_test {
     @Test
     public void test_lic0(){
         Parameters.LENGTH1 = 5;
-        int[][] datapoints1 = {{1,0},{7,0},{5,0},{5,0}};
+        double[][] datapoints1 = {{1,0},{7,0},{5,0},{5,0}};
         CMV cmv1 = new CMV(datapoints1);
 
-        int[][] datapoints2 = {{1,0},{0,0},{5,0},{5,0}};
+        double[][] datapoints2 = {{1,0},{0,0},{5,0},{5,0}};
         CMV cmv2 = new CMV(datapoints2);
 
-        int[][] datapoints3 = {{1,0},{3,0},{5,0},{5,0}};
+        double[][] datapoints3 = {{1,0},{3,0},{5,0},{5,0}};
         CMV cmv3 = new CMV(datapoints3);
 
-        int[][] datapoints4 = {{0,0},{1,0},{2,0},{3,0},{4,0},{5,0},{6,0},{7,0}};
+        double[][] datapoints4 = {{0,0},{1,0},{2,0},{3,0},{4,0},{5,0},{6,0},{7,0}};
         CMV cmv4 = new CMV(datapoints4);
 
         //there are two consecutive points where the distance is 6>LENGTH1 should return true in LIC
@@ -56,14 +56,14 @@ public class LIC_test {
     public void test_lic1(){
         Parameters.RADIUS1 = 1; 
 
-        int[][] datapoints1 = {{0,0},{5,5},{-5,-5},{-5,5},{0,1}};
+        double[][] datapoints1 = {{0,0},{5,5},{-5,-5},{-5,5},{0,1}};
         CMV cmv1 = new CMV(datapoints1);
         
         Parameters.RADIUS1 = 1000000;
-        int[][] datapoints2 = {{0,0},{5,6},{-5,-5},{-5,5},{0,1}};
+        double[][] datapoints2 = {{0,0},{5,6},{-5,-5},{-5,5},{0,1}};
         CMV cmv2 = new CMV(datapoints2);
 
-        int[][] datapoints3 = {{0,0},{5,5},{-5,-5},{0,1}};
+        double[][] datapoints3 = {{0,0},{5,5},{-5,-5},{0,1}};
         CMV cmv3 = new CMV(datapoints3);
 
         //the three points in the middle cannot be contained in circle with RADIUS1 = 1, should return true
