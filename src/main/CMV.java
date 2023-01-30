@@ -1,6 +1,10 @@
 package main;
 
+
+import java.util.ArrayList;
+
 import java.util.Arrays;
+
 
 public class CMV {
     
@@ -37,6 +41,7 @@ public class CMV {
         return cmv_vector[lic_number];
     }
 
+
     private boolean lic0_calculate() {
         for (int j = 1; j < this.datapoints.length; j++){ 
             int i = j - 1;
@@ -65,7 +70,23 @@ public class CMV {
     }
 
     
-    private Boolean lic2_calculate() {
+    private boolean lic2_calculate() {
+        final double EPSILON = Parameters.EPSILON;
+        
+        for (int k = 2; k < datapoints.length; k++){ 
+            int j = k - 1;
+            int i = j - 1;
+            if(datapoints[j][0] == datapoints[i][0] && datapoints[j][1] == datapoints[i][1]){
+                return false;
+            }
+            else if(datapoints[j][0] == datapoints[k][0] && datapoints[j][1] == datapoints[k][1]){
+                return false;
+            }
+            double angle = Helper_Functions.three_point_angle(datapoints[i], datapoints[j], datapoints[k]) % (2*Math.PI);
+            if(angle < (Math.PI - EPSILON) || angle > (Math.PI + EPSILON)){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -84,8 +105,62 @@ public class CMV {
         return false;
     }
 
-    private Boolean lic4_calculate() {
+    /*
+     * Return true if Q_PTS consecutive datapoints lie in QUAD different quadrants.
+     * This is done through having a nested for loop which takes a set of datapoints
+     * of size Q_PTS and iterates through them. Each unique beloning quadrant is stored
+     * in a ArrayList where the size of it gets compared to QUAD. If the size = QUAD return
+     * true, else continue or return false.   
+     * 
+     */
+
+     private Boolean lic4_calculate() {
+        final int Q_PTS = Parameters.Q_PTS;
+        final int QUADS = Parameters.QUADS;
+        int quadrant;
+        ArrayList<Integer> quadrants = new ArrayList<>(3);
+        for (int i = 0; i < datapoints.length; i++){ 
+            quadrants.add(quadEvaluation(datapoints[i]));
+            for (int j = i+1; j < i + Q_PTS; j++){
+                if(j > datapoints.length - 1){
+                    continue;
+                }
+                if(quadrants.size() == QUADS){
+                    return true;
+                }
+                quadrant = quadEvaluation(datapoints[j]);
+                if(!quadrants.contains(quadrant)){
+                    quadrants.add(quadrant);
+                }
+            }
+            System.out.println(quadrants);
+            if(quadrants.size() == QUADS){
+                return true;
+            }
+            quadrant = -1;
+            quadrants.clear();
+        }
         return false;
+    }
+    
+    /*
+     * @param int[] datapoint 
+     * Takes in a datapoint and determines which quadrant it belongs to.
+     * Returns a int between 1-4.
+     */
+    public int quadEvaluation(int[] datapoint){
+        if(datapoint[0] >= 0 && datapoint[1] >= 0){
+            return 1;
+        }
+        else if(datapoint[0] <= 0 && datapoint[1] >= 0){
+            return 2;
+        }
+        else if(datapoint[0] <= 0 && datapoint[1] <= 0){
+            return 3;
+        }
+        else{
+            return 4;
+        }
     }
     /*
      * Returns true if two adjecent datapoints I and I+1 fullfills the
@@ -152,12 +227,55 @@ public class CMV {
 
         return false;
     }
+    /*
+     * Returns true if there exist two datapoints (I,J), seperated by K_PTS datapoints,
+     * that are at a distance greater than LENGTH1. 
+     */
     
-    private Boolean lic7_calculate() {
+    private boolean lic7_calculate() {
+        
+        final int K_PTS = Parameters.K_PTS;
+        final double LENGTH1 = Parameters.LENGTH1;
+        if(datapoints.length < 3){
+            return false;
+        }
+        for(int i = 0; i < datapoints.length; i++){
+            int j = i + K_PTS + 1;
+            if(j > datapoints.length - 1){
+                break;
+            }
+            
+            int[] vectorIJ = Helper_Functions.vector_subtraction(datapoints[j],datapoints[i]);
+            double magnitudeIJ = Helper_Functions.vector_magnitude(vectorIJ);
+            if(magnitudeIJ > LENGTH1){
+                return true;
+            }
+        }
         return false;
     }
 
-    private Boolean lic8_calculate() {
+    private boolean lic8_calculate() {
+        //The condition is not met when NUMPOINTS < 5.
+        if(this.datapoints.length < 5){
+            return false;
+        }
+
+        for (int i = 0; i < this.datapoints.length-Parameters.A_PTS-Parameters.B_PTS - 2; i++) {
+            int p2_index = i + Parameters.A_PTS + 1;
+            int p3_index = p2_index + Parameters.B_PTS + 1;
+
+            int[] p1 = this.datapoints[i];
+            int[] p2 = this.datapoints[p2_index];
+            int[] p3 = this.datapoints[p3_index];
+            double radius = Helper_Functions.circumscribed_circle_radius(p1,p2,p3);
+
+            // if the radius of the circle going through all the points is larger than RADIUS1
+            // the points can't be contained within a circle with RADIUS
+            if (radius > Parameters.RADIUS1){
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -227,7 +345,12 @@ public class CMV {
 
         return false;
     }
-
+    /*
+     * Return true if there exist a set of datapoints {I,J} that are seperated
+     * by G_PTS datapoints and fullfills the condition X[j] - X[I] < 0. Meaning
+     * the datapoints (I,J) x-axis subtracted as above has to be less than 0.
+     * If this condition is not fullfilled the function return false.  
+     */
     private boolean lic11_calculate() {
         if(datapoints.length < 3){
             return false;
@@ -245,16 +368,116 @@ public class CMV {
         }
         return false;
     }
-    
-    private Boolean lic12_calculate() {
+    /* 
+     * The function returns true if both checkBigger and checkSmaller is true:
+     * 1. checkBigger is true if there exist two datapoints, seperated by K_PTS
+     * datapoints, has a magnitude > LENGTH1.
+     * 2. checkSmaller is true if there exist two datapoints, seperated by K_PTS
+     * datapoints, has a magnitude < LENGTH2.
+     * Returns false if 1. or 2. is not meet.
+     */
+    public boolean lic12_calculate() {
+        boolean checkBigger = false;
+        boolean checkSmaller = false;
+        final int K_PTS = Parameters.K_PTS;
+        final double LENGTH1 = Parameters.LENGTH1;
+        final double LENGTH2 = Parameters.LENGTH2;
+        for(int i = 0; i < datapoints.length; i++){
+            int j = i + K_PTS + 1;
+            if (j > datapoints.length - 1){
+                break;
+            }
+            int[] vectorIJ = Helper_Functions.vector_subtraction(datapoints[j],datapoints[i]);    
+            double magnitudeIJ = Helper_Functions.vector_magnitude(vectorIJ);                   
+            if(magnitudeIJ > LENGTH1){
+                checkBigger = true;
+            }
+            if(magnitudeIJ < LENGTH2){
+                checkSmaller = true;
+            }
+        }
+        if(checkSmaller && checkBigger){
+            return true;
+        }
         return false;
     }
 
+    /*
+        Returns true if the following requirements are fulfilled:
+        1.  There exists at least one set of three data points,
+            separated by exactly A PTS and B PTS consecutive intervening points
+            that cannot be contained within or on a circle of radius RADIUS1.
+        2.  There exists at least one set of three data points,
+            separated by exactly A PTS and B PTS consecutive intervening points
+            that can be contained in or on a circle of radius RADIUS2.
+        3.  NUMPOINTS > 5
+     */
     private Boolean lic13_calculate() {
+        if(datapoints.length < 5){
+            return false;
+        }
+
+        boolean requirement_1 = false;
+        boolean requirement_2 = false;
+
+        for (int i = 0; i < this.datapoints.length-Parameters.A_PTS-Parameters.B_PTS - 2; i++) {
+            int p2_index = i + Parameters.A_PTS + 1;
+            int p3_index = p2_index + Parameters.B_PTS + 1;
+
+            int[] p1 = this.datapoints[i];
+            int[] p2 = this.datapoints[p2_index];
+            int[] p3 = this.datapoints[p3_index];
+            double radius = Helper_Functions.circumscribed_circle_radius(p1,p2,p3);
+
+            // if the radius of the circle going through all the points is larger than RADIUS1
+            // the points can't be contained within a circle with RADIUS
+            if (radius > Parameters.RADIUS1){
+                requirement_1 = true;
+            }
+
+            if(radius <= Parameters.RADIUS2){
+                requirement_2 = true;
+            }
+
+            if(requirement_1 && requirement_2){
+                return true;
+            }
+        }
+
+
         return false;
     }
 
+    /* 
+     * Returns a boolean which has two requirment to be true:
+     * 1. There exist a triplet of dataset i, j, k which make up a area bigger than AREA1
+     * 2. There exist a triplet of dataset i, j, k which make up a area smaller than AREA2.
+     * 
+     */
     private Boolean lic14_calculate() {
+        final int E_PTS = Parameters.E_PTS;
+        final int F_PTS = Parameters.F_PTS;
+        final double AREA1 = Parameters.AREA1;
+        final double AREA2 = Parameters.AREA2;
+        boolean checkA1 = false;
+        boolean checkA2 = false;
+        for(int i = 0; i < datapoints.length; i++){
+            int j = i + E_PTS + 1;
+            int k = j + F_PTS + 1;
+            if(j > datapoints.length - 1 || k > datapoints.length - 1){
+                break;
+            }
+            
+            if(Helper_Functions.triangle_vertex_area(datapoints[i],datapoints[j],datapoints[k]) > AREA1){
+                checkA1 = true;
+            }
+            if(Helper_Functions.triangle_vertex_area(datapoints[i],datapoints[j],datapoints[k]) < AREA2){
+                checkA2 = true;
+            }
+        }
+        if(checkA1 && checkA2){
+            return true;
+        }
         return false;
     }
     
