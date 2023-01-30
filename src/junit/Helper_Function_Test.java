@@ -1,6 +1,7 @@
 package junit;
 
 import main.Helper_Functions;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -11,6 +12,19 @@ import java.beans.Transient;
 import java.util.Arrays;
 
 public class Helper_Function_Test {
+
+    @Test
+    public void test_smallest_enclosing_circle() {
+        // points on the circumference of a circle of radius 3
+        double[][] datapoints = {{0,3},{3,0},{-3,0}};
+        double radius = Helper_Functions.smallest_enclosing_radius(datapoints[0],datapoints[1], datapoints[2]);
+        assertEquals(3.0, radius,0.01);
+
+        // points on a straight line
+        datapoints = new double[][]{{3,0},{0,0},{-3,0}};
+        radius = Helper_Functions.smallest_enclosing_radius(datapoints[0],datapoints[1], datapoints[2]);
+        assertEquals(3.0, radius,0.01);
+    }
     @Test
     public void test_circumscribed_circle_radius() {
         double[][] datapoints = {{0,3},{3,0},{-3,0}};
