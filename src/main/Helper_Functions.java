@@ -1,6 +1,16 @@
 package main;
 
 public class Helper_Functions {
+    // Calculates the radius of the smallest enclosing circle of the three points
+    public static double smallest_enclosing_radius(double[] p1, double[] p2, double[] p3){
+        double dist_p1_to_p2 = euclidean_distance(p1,p2);
+        double dist_p1_to_p3 = euclidean_distance(p1,p3);
+        double dist_p2_to_p3 = euclidean_distance(p2,p3);
+
+        // returns t
+        return Math.max(Math.max(dist_p1_to_p2, dist_p1_to_p3),dist_p2_to_p3)/2.0;
+    }
+
     /// Calculates the radius of a circle circumscribing the triangle described by the three points
     // source for equation: https://hratliff.com/posts/2019/02/curvature-of-three-points/
     public static double circumscribed_circle_radius(double[] p1, double[] p2, double[] p3){

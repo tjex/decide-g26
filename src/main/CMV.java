@@ -58,7 +58,7 @@ public class CMV {
             double[] p1 = this.datapoints[i-2];
             double[] p2 = this.datapoints[i-1];
             double[] p3 = this.datapoints[i];
-            double radius = Helper_Functions.circumscribed_circle_radius(p1,p2,p3);
+            double radius = Helper_Functions.smallest_enclosing_radius(p1,p2,p3);
 
             // if the radius of the circle going through all the points is larger than RADIUS1
             // the points can't be contained within a circle with RADIUS
@@ -249,7 +249,7 @@ public class CMV {
             double[] p1 = this.datapoints[i];
             double[] p2 = this.datapoints[p2_index];
             double[] p3 = this.datapoints[p3_index];
-            double radius = Helper_Functions.circumscribed_circle_radius(p1,p2,p3);
+            double radius = Helper_Functions.smallest_enclosing_radius(p1,p2,p3);
 
             // if the radius of the circle going through all the points is larger than RADIUS1
             // the points can't be contained within a circle with RADIUS
@@ -409,10 +409,9 @@ public class CMV {
             double[] p1 = this.datapoints[i];
             double[] p2 = this.datapoints[p2_index];
             double[] p3 = this.datapoints[p3_index];
-            double radius = Helper_Functions.circumscribed_circle_radius(p1,p2,p3);
+            double radius = Helper_Functions.smallest_enclosing_radius(p1,p2,p3);
 
-            // if the radius of the circle going through all the points is larger than RADIUS1
-            // the points can't be contained within a circle with RADIUS
+
             if (radius > Parameters.RADIUS1){
                 requirement_1 = true;
             }
