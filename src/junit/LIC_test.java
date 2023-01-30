@@ -14,7 +14,7 @@ public class LIC_test {
     @Test 
     public void cmv_getter_test(){
         //pretty useless test, works cause lic5-calculate is run in the constructor
-        int[][] datapoints = {{4,0},{3,0},{2,0},{1,0},{0,0}};
+        double[][] datapoints = {{4,0},{3,0},{2,0},{1,0},{0,0}};
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(5));
     }
@@ -83,7 +83,7 @@ public class LIC_test {
     @Test
     public void checkValid90DegreeAngleUnderLic2(){
         Parameters.EPSILON = Math.PI / 4;
-        int[][] datapoints = {{0,1},{0,0},{1,0}};
+        double[][] datapoints = {{0,1},{0,0},{1,0}};
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(2));
     }
@@ -95,7 +95,7 @@ public class LIC_test {
     @Test
     public void checkValid270DegreeAngleOverLic2(){
         Parameters.EPSILON = Math.PI / 4;
-        int[][] datapoints = {{0,-1},{0,0},{1,0}};
+        double[][] datapoints = {{0,-1},{0,0},{1,0}};
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(2));
     }
@@ -108,7 +108,7 @@ public class LIC_test {
     @Test
     public void checkInvalid180DegreeAngleLic2(){
         Parameters.EPSILON = Math.PI / 4;
-        int[][] datapoints = {{-1,0},{0,0},{1,0}};
+        double[][] datapoints = {{-1,0},{0,0},{1,0}};
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(2));
     }
@@ -120,13 +120,13 @@ public class LIC_test {
     public void test_lic3(){
         Parameters.AREA1 = 15.0;
 
-        int[][] datapoints1 = {{-4,0},{4,0},{0,4}};
+        double[][] datapoints1 = {{-4,0},{4,0},{0,4}};
         CMV cmv1 = new CMV(datapoints1);
 
-        int[][] datapoints2 = {{-1,0},{1,0},{0,1}};
+        double[][] datapoints2 = {{-1,0},{1,0},{0,1}};
         CMV cmv2 = new CMV(datapoints2);
 
-        int[][] datapoints3 = {{-4,0},{4,0},{0,0},{0,4}};
+        double[][] datapoints3 = {{-4,0},{4,0},{0,0},{0,4}};
         CMV cmv3 = new CMV(datapoints3);
 
         //We have a triangle with area 16, which is bigger than AREA1=15
@@ -147,7 +147,7 @@ public class LIC_test {
     public void checkIfValidGivesTrueLic4(){
         Parameters.Q_PTS = 3;
         Parameters.QUADS = 3;
-        int[][] datapoints = {{1,1},{-1,1},{-1,-1}};
+        double[][] datapoints = {{1,1},{-1,1},{-1,-1}};
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(4));
     }
@@ -160,7 +160,7 @@ public class LIC_test {
     public void checkIfInvalidGivesFalseLic4(){
         Parameters.Q_PTS = 3;
         Parameters.QUADS = 3;
-        int[][] datapoints = {{1,1},{0,-1},{-1,-1}};
+        double[][] datapoints = {{1,1},{0,-1},{-1,-1}};
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(4));
     }
@@ -173,7 +173,7 @@ public class LIC_test {
      */
     @Test
     public void checkIfValidGivesTrueLic5(){
-        int[][] datapoints = {{4,0},{3,0},{2,0},{1,0},{0,0}};
+        double[][] datapoints = {{4,0},{3,0},{2,0},{1,0},{0,0}};
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(5));
     }
@@ -185,7 +185,7 @@ public class LIC_test {
     */ 
     @Test
     public void checkIfInvalidGivesFalseLic5(){
-        int[][] datapoints = {{0,0},{1,0},{2,0},{3,0},{4,0}};
+        double[][] datapoints = {{0,0},{1,0},{2,0},{3,0},{4,0}};
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(5));
     }
@@ -202,9 +202,9 @@ public class LIC_test {
      */
     @Test
     public void test_lic6_parameter_requirements() {
-        int[][] no_data_points  = new int[][] {};
-        int[][] one_data_point  = new int[][] {{0, 0}};
-        int[][] two_data_points = new int[][] {{2, 1},{0, 0}};
+        double[][] no_data_points  = new double[][] {};
+        double[][] one_data_point  = new double[][] {{0, 0}};
+        double[][] two_data_points = new double[][] {{2, 1},{0, 0}};
         
         Parameters.DIST = 10;
         Parameters.N_PTS = 3;
@@ -220,7 +220,7 @@ public class LIC_test {
 
         // Num of data points is OK
         // But N_PTS is not!
-        int[][] three_data_points = new int[][] {{2, 1},{0, 0}, {5, 5}};
+        double[][] three_data_points = new double[][] {{2, 1},{0, 0}, {5, 5}};
         cmv = new CMV(three_data_points);
         Parameters.N_PTS = 2;
         assertEquals(false, cmv.get_cmv_value(6));
@@ -245,7 +245,7 @@ public class LIC_test {
      */
     @Test()
     public void test_lic6_valid_points() {
-        int[][] data_points = new int[][] {{0, 0}, {1, 1}, {2, 2}, {3, 0}};
+        double[][] data_points = new double[][] {{0, 0}, {1, 1}, {2, 2}, {3, 0}};
         
         Parameters.DIST = 1.1;
         Parameters.N_PTS = 4;
@@ -260,7 +260,7 @@ public class LIC_test {
      */
     @Test()
     public void test_lic6_invalid_points() {
-        int[][] data_points = new int[][] {{0, 0}, {1, 0}, {2, 0}, {3, 0}};
+        double[][] data_points = new double[][] {{0, 0}, {1, 0}, {2, 0}, {3, 0}};
         
         Parameters.DIST = 0.01; // all points are on the line!
         Parameters.N_PTS = 4;
@@ -268,7 +268,7 @@ public class LIC_test {
         CMV cmv = new CMV(data_points);
         assertEquals(false, cmv.get_cmv_value(6));
 
-        data_points = new int[][] {{0, 0}, {-1, 0}, {-2, 0}, {-3, 0}};
+        data_points = new double[][] {{0, 0}, {-1, 0}, {-2, 0}, {-3, 0}};
         cmv = new CMV(data_points);
         assertEquals(false, cmv.get_cmv_value(6));
     }
@@ -284,7 +284,7 @@ public class LIC_test {
     public void checkIfValidGivesTrueLic7(){
         Parameters.K_PTS = 3;
         Parameters.LENGTH1 = 2;
-        int[][] datapoints = {{1,0},{0,0},{0,0},{0,0},{5,0}};
+        double[][] datapoints = {{1,0},{0,0},{0,0},{0,0},{5,0}};
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(7));
     }
@@ -299,7 +299,7 @@ public class LIC_test {
     public void checkIfInvalidGivesFalseLic7(){
         Parameters.K_PTS = 3;
         Parameters.LENGTH1 = 2;
-        int[][] datapoints = {{0,1},{0,0},{0,0},{0,0},{1,0}};
+        double[][] datapoints = {{0,1},{0,0},{0,0},{0,0},{1,0}};
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(7));
     }
@@ -311,7 +311,7 @@ public class LIC_test {
      */
     @Test()
     public void test_lic8_valid_points() {
-        int[][] data_points = new int[][] {{3, 0}, {1, 1}, {0, 3}, {3, 4}, {-3,0}};
+        double[][] data_points = new double[][] {{3, 0}, {1, 1}, {0, 3}, {3, 4}, {-3,0}};
 
         Parameters.A_PTS = 1;
         Parameters.B_PTS = 1;
@@ -327,8 +327,8 @@ public class LIC_test {
      */
     @Test()
     public void test_lic8_invalid_points() {
-        int[][] data_points_1 = new int[][] {{0, 2}, {1, 0}, {0, 0}, {3, 1}};
-        int[][] data_points_2 = new int[][] {{3, 0}, {1, 1}, {0, 3}, {3, 4}};
+        double[][] data_points_1 = new double[][] {{0, 2}, {1, 0}, {0, 0}, {3, 1}};
+        double[][] data_points_2 = new double[][] {{3, 0}, {1, 1}, {0, 3}, {3, 4}};
         Parameters.A_PTS = 1;
         Parameters.B_PTS = 1;
         Parameters.RADIUS1 = 10;
@@ -352,18 +352,18 @@ public class LIC_test {
         Parameters.C_PTS = 2;
         Parameters.D_PTS = 3;
 
-        int[][] datapoints1 = {{1,1}, {2,2}, {3,3}};
+        double[][] datapoints1 = {{1,1}, {2,2}, {3,3}};
         CMV cmv1 = new CMV(datapoints1);
         
 
-        int[][] datapoints2 = {{1,1}, {2,2}, {3,3}, {1,1}, {2,2}, {3,3}, {1,1}, {2,2}, {3,3}};
+        double[][] datapoints2 = {{1,1}, {2,2}, {3,3}, {1,1}, {2,2}, {3,3}, {1,1}, {2,2}, {3,3}};
         CMV cmv2 = new CMV(datapoints2);
 
         //90deg=1.57rad angle < 3.14 - EPSILON
-        int[][] datapoints3 = {{1,1}, {0,0}, {0,0}, {1,3}, {0,0}, {0,0}, {0,0}, {3,3}}; 
+        double[][] datapoints3 = {{1,1}, {0,0}, {0,0}, {1,3}, {0,0}, {0,0}, {0,0}, {3,3}}; 
         CMV cmv3 = new CMV(datapoints3);
 
-        int[][] datapoints4 = {{0,1}, {0,0}, {0,0}, {2,3}, {0,0}, {0,0}, {0,0}, {4,4}}; 
+        double[][] datapoints4 = {{0,1}, {0,0}, {0,0}, {2,3}, {0,0}, {0,0}, {0,0}, {4,4}}; 
         CMV cmv4 = new CMV(datapoints4);
         
         
@@ -387,13 +387,13 @@ public class LIC_test {
         Parameters.F_PTS = 3;
         Parameters.AREA1 = 14;
 
-        int[][] datapoints1 = {{-4,0}, {0,0}, {0,0}, {4,0}, {0,0}, {0,0}, {0,0}, {0,4}, {0,0}};
+        double[][] datapoints1 = {{-4,0}, {0,0}, {0,0}, {4,0}, {0,0}, {0,0}, {0,0}, {0,4}, {0,0}};
         CMV cmv1 = new CMV(datapoints1);
 
-        int[][] datapoints2 = {{-1,0}, {0,0}, {0,0}, {1,0}, {0,0}, {0,0}, {0,0}, {0,4}, {0,0}};
+        double[][] datapoints2 = {{-1,0}, {0,0}, {0,0}, {1,0}, {0,0}, {0,0}, {0,0}, {0,4}, {0,0}};
         CMV cmv2 = new CMV(datapoints2);
 
-        int[][] datapoints3 = {{-4,0}, {0,0}, {0,0}, {0,0}, {4,0}, {0,0}, {0,0}, {0,4}, {0,0}};
+        double[][] datapoints3 = {{-4,0}, {0,0}, {0,0}, {0,0}, {4,0}, {0,0}, {0,0}, {0,4}, {0,0}};
         CMV cmv3 = new CMV(datapoints3);
 
         //this should pass, we have a triangle with area 16 which is bigger than AREA1=14
@@ -414,7 +414,7 @@ public class LIC_test {
     @Test
     public void checkIfValidGivesTrueLic11(){
         Parameters.G_PTS = 3;
-        int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{2,0}};
+        double[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{2,0}};
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(11));
     }
@@ -426,7 +426,7 @@ public class LIC_test {
     @Test
     public void checkIfInvalidGivesFalseLic11(){
         Parameters.G_PTS = 3;
-        int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{4,0}};
+        double[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{4,0}};
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(11));
     }
@@ -441,7 +441,7 @@ public class LIC_test {
         Parameters.K_PTS = 2;
         Parameters.LENGTH1 = 2;
         Parameters.LENGTH2 = 5;
-        int[][] datapoints = {{0,0},{4,4},{0,0},{0,0},{1,1}};
+        double[][] datapoints = {{0,0},{4,4},{0,0},{0,0},{1,1}};
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(12));
     }
@@ -454,7 +454,7 @@ public class LIC_test {
         Parameters.K_PTS = 2;
         Parameters.LENGTH1 = 2;
         Parameters.LENGTH2 = 5;
-        int[][] datapoints = {{2,2},{2,2},{2,2},{10,10},{10,10}};
+        double[][] datapoints = {{2,2},{2,2},{2,2},{10,10},{10,10}};
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(12));
     }
@@ -467,7 +467,7 @@ public class LIC_test {
         Parameters.K_PTS = 2;
         Parameters.LENGTH1 = 2;
         Parameters.LENGTH2 = 5;
-        int[][] datapoints = {{0,0},{2,2},{0,0},{0,0},{1,1}};
+        double[][] datapoints = {{0,0},{2,2},{0,0},{0,0},{1,1}};
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(12));
     }
@@ -480,7 +480,7 @@ public class LIC_test {
      */
     @Test
     public void check_lic13_input_requirements(){
-        int[][] data_points_1 = new int[][] {{0, 2}, {1, 0}, {0, 0}};
+        double[][] data_points_1 = new double[][] {{0, 2}, {1, 0}, {0, 0}};
 
         Parameters.A_PTS = 1;
         Parameters.B_PTS = 1;
@@ -506,7 +506,7 @@ public class LIC_test {
     public void check_lic13_invalid_data_returns_false(){
         // Only set of data points seperated by A and B points is ((0,3),(3,0),(-3,0))
         // The set can be contained by a circle of radius 3 minimum.
-        int[][] data_points= new int[][] {{0, 3}, {1, 0}, {3, 0}, {0,9}, {-3, 0}};
+        double[][] data_points= new double[][] {{0, 3}, {1, 0}, {3, 0}, {0,9}, {-3, 0}};
 
         Parameters.A_PTS = 1;
         Parameters.B_PTS = 1;
@@ -532,7 +532,7 @@ public class LIC_test {
     public void check_lic13_valid_data_returns_true(){
         // Only set of data points seperated by A and B points is ((0,3),(3,0),(-3,0))
         // The set can be contained by a circle of radius 3 minimum.
-        int[][] data_points= new int[][] {{0, 3}, {1, 0}, {3, 0}, {0,9}, {-3, 0}};
+        double[][] data_points= new double[][] {{0, 3}, {1, 0}, {3, 0}, {0,9}, {-3, 0}};
 
         Parameters.A_PTS = 1;
         Parameters.B_PTS = 1;
@@ -556,7 +556,7 @@ public class LIC_test {
         Parameters.F_PTS = 1;
         Parameters.AREA1 = 4;
         Parameters.AREA2 = 10;
-        int[][] datapoints = {{-3,0},{0,0},{0,3},{0,0},{3,0}};
+        double[][] datapoints = {{-3,0},{0,0},{0,3},{0,0},{3,0}};
         CMV cmv = new CMV(datapoints);
         assertTrue(cmv.get_cmv_value(14));
     }
@@ -572,7 +572,7 @@ public class LIC_test {
         Parameters.F_PTS = 1;
         Parameters.AREA1 = 4;
         Parameters.AREA2 = 10;
-        int[][] datapoints = {{-6,0},{0,0},{0,6},{0,0},{6,0}};
+        double[][] datapoints = {{-6,0},{0,0},{0,6},{0,0},{6,0}};
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(14));
     }
@@ -587,7 +587,7 @@ public class LIC_test {
         Parameters.F_PTS = 1;
         Parameters.AREA1 = 2;
         Parameters.AREA2 = 5;
-        int[][] datapoints = {{-1,0},{0,0},{0,1},{0,1},{1,0}};
+        double[][] datapoints = {{-1,0},{0,0},{0,1},{0,1},{1,0}};
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(14));
     }

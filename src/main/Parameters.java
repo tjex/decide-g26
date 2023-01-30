@@ -21,7 +21,7 @@ public class Parameters {
     public static double RADIUS2;
     public static double AREA2;
 
-    public static int[][] DATA_POINTS = new int[100][2];
+    public static double[][] DATA_POINTS = new double[100][2];
     public static boolean[] PUV_VEC = new boolean[15];
     public static int[][] LCM_MAT = new int[15][15];
 }

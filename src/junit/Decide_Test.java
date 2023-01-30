@@ -31,7 +31,7 @@ public class Decide_Test {
     public void test_decide_no() {
         Main launcher = new Main();
 
-        Parameters.DATA_POINTS = new int[][] { {0,0}, {1,0}, {2,0}, {3,0}, {4,0} };
+        Parameters.DATA_POINTS = new double[][] { {0,0}, {1,0}, {2,0}, {3,0}, {4,0} };
 
         boolean launch = launcher.decide();
         assertEquals(false, launch);
