@@ -9,11 +9,11 @@ import java.util.Arrays;
 public class CMV {
     
     private boolean[] cmv_vector = new boolean[15];
-    private int[][] datapoints;
+    private double[][] datapoints;
 
     
 
-    public CMV(int[][] planarDataPoints){
+    public CMV(double[][] planarDataPoints){
         datapoints = planarDataPoints;
         calculate_lics();
 
@@ -55,9 +55,9 @@ public class CMV {
     private Boolean lic1_calculate() {
         for (int i = 2; i < this.datapoints.length; i++) {
 
-            int[] p1 = this.datapoints[i-2];
-            int[] p2 = this.datapoints[i-1];
-            int[] p3 = this.datapoints[i];
+            double[] p1 = this.datapoints[i-2];
+            double[] p2 = this.datapoints[i-1];
+            double[] p3 = this.datapoints[i];
             double radius = Helper_Functions.circumscribed_circle_radius(p1,p2,p3);
 
             // if the radius of the circle going through all the points is larger than RADIUS1
@@ -92,9 +92,9 @@ public class CMV {
 
     private boolean lic3_calculate() {
         for (int i = 0; i < datapoints.length - 2; i++) {
-            int[] first = datapoints[i];
-            int[] second = datapoints[i + 1];
-            int[] third = datapoints[i + 2];
+            double[] first = datapoints[i];
+            double[] second = datapoints[i + 1];
+            double[] third = datapoints[i + 2];
             
             double area = Helper_Functions.triangle_vertex_area(first, second, third);
 
@@ -172,10 +172,10 @@ public class CMV {
             int p2 = Math.min(p1 + N_PTS - 1, datapoints.length - 1);
             
             // Coordinates for first and last point
-            int x1 = datapoints[p1][0];
-            int y1 = datapoints[p1][1];
-            int x2 = datapoints[p2][0];
-            int y2 = datapoints[p2][1];
+            double x1 = datapoints[p1][0];
+            double y1 = datapoints[p1][1];
+            double x2 = datapoints[p2][0];
+            double y2 = datapoints[p2][1];
 
             // Condition when first and last are "identical".
             // Due to p1 and p2 cannot have the same index, that require N_PTS be greater than 
@@ -197,8 +197,8 @@ public class CMV {
             // Line between p1-p2. Check all other points distance to line.
             // If any set contains at least one point with distance greater than DIST, return true.
             for (int p = p1 + 1; p < p2; p++) {
-                int x0 = datapoints[p][0];
-                int y0 = datapoints[p][1];
+                double x0 = datapoints[p][0];
+                double y0 = datapoints[p][1];
                 double distance = 
                     Math.abs((x2 - x1) * (y1 - y0) - (x1 - x0) * (y2 -y1)) /
                     Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
@@ -227,7 +227,7 @@ public class CMV {
                 break;
             }
             
-            int[] vectorIJ = Helper_Functions.vector_subtraction(datapoints[j],datapoints[i]);
+            double[] vectorIJ = Helper_Functions.vector_subtraction(datapoints[j],datapoints[i]);
             double magnitudeIJ = Helper_Functions.vector_magnitude(vectorIJ);
             if(magnitudeIJ > LENGTH1){
                 return true;
@@ -246,9 +246,9 @@ public class CMV {
             int p2_index = i + Parameters.A_PTS + 1;
             int p3_index = p2_index + Parameters.B_PTS + 1;
 
-            int[] p1 = this.datapoints[i];
-            int[] p2 = this.datapoints[p2_index];
-            int[] p3 = this.datapoints[p3_index];
+            double[] p1 = this.datapoints[i];
+            double[] p2 = this.datapoints[p2_index];
+            double[] p3 = this.datapoints[p3_index];
             double radius = Helper_Functions.circumscribed_circle_radius(p1,p2,p3);
 
             // if the radius of the circle going through all the points is larger than RADIUS1
@@ -281,9 +281,9 @@ public class CMV {
             int second_point_location = i + Parameters.C_PTS + 1 ;
             int third_point_location = second_point_location + Parameters.D_PTS + 1 ;
             
-            int[] first = datapoints[i];
-            int[] second = datapoints[second_point_location];
-            int[] third = datapoints[third_point_location];
+            double[] first = datapoints[i];
+            double[] second = datapoints[second_point_location];
+            double[] third = datapoints[third_point_location];
 
             //angle undefined, ray coincides with vertex, LIC not satisfied by those points
             if(Arrays.equals(first,second) | Arrays.equals(second,third)){
@@ -315,9 +315,9 @@ public class CMV {
             int second_point_location = i + Parameters.E_PTS + 1 ;
             int third_point_location = second_point_location + Parameters.F_PTS + 1 ;
             
-            int[] first = datapoints[i];
-            int[] second = datapoints[second_point_location];
-            int[] third = datapoints[third_point_location];
+            double[] first = datapoints[i];
+            double[] second = datapoints[second_point_location];
+            double[] third = datapoints[third_point_location];
 
             if(Helper_Functions.triangle_vertex_area(first, second, third) > Parameters.AREA1){
                 return true;
@@ -369,7 +369,7 @@ public class CMV {
             if (j > datapoints.length - 1){
                 break;
             }
-            int[] vectorIJ = Helper_Functions.vector_subtraction(datapoints[j],datapoints[i]);    
+            double[] vectorIJ = Helper_Functions.vector_subtraction(datapoints[j],datapoints[i]);    
             double magnitudeIJ = Helper_Functions.vector_magnitude(vectorIJ);                   
             if(magnitudeIJ > LENGTH1){
                 checkBigger = true;
@@ -406,9 +406,9 @@ public class CMV {
             int p2_index = i + Parameters.A_PTS + 1;
             int p3_index = p2_index + Parameters.B_PTS + 1;
 
-            int[] p1 = this.datapoints[i];
-            int[] p2 = this.datapoints[p2_index];
-            int[] p3 = this.datapoints[p3_index];
+            double[] p1 = this.datapoints[i];
+            double[] p2 = this.datapoints[p2_index];
+            double[] p3 = this.datapoints[p3_index];
             double radius = Helper_Functions.circumscribed_circle_radius(p1,p2,p3);
 
             // if the radius of the circle going through all the points is larger than RADIUS1
