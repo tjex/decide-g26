@@ -235,7 +235,7 @@ public class LIC_test {
     @Test
     public void checkAreaInBetweenIsTrue(){
         Parameters.E_PTS = 1;
-        Parameters.F_PTS = 3;
+        Parameters.F_PTS = 1;
         Parameters.AREA1 = 4;
         Parameters.AREA2 = 10;
         int[][] datapoints = {{-3,0},{0,0},{0,3},{0,0},{3,0}};
@@ -251,7 +251,7 @@ public class LIC_test {
     @Test
     public void checkAreaIsOverFalse(){
         Parameters.E_PTS = 1;
-        Parameters.F_PTS = 3;
+        Parameters.F_PTS = 1;
         Parameters.AREA1 = 4;
         Parameters.AREA2 = 10;
         int[][] datapoints = {{-6,0},{0,0},{0,6},{0,0},{6,0}};
@@ -266,7 +266,7 @@ public class LIC_test {
      */
     public void checkAreaIsUnderFalse(){
         Parameters.E_PTS = 1;
-        Parameters.F_PTS = 3;
+        Parameters.F_PTS = 1;
         Parameters.AREA1 = 2;
         Parameters.AREA2 = 5;
         int[][] datapoints = {{-1,0},{0,0},{0,1},{0,1},{1,0}};
