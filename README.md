@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-[What is this Project?](##What-is-this-Project?)
-[How it Works](##How-it-Works)
-[Input Data](##Input-Data)
-[Launch Interceptor Conditions (LIC)](###Launch-Interceptor-Conditions-(LIC))
-[Logical Connector Matrix (LCM)](###Logical-Connector-Matrix-(LCM))
-[Primary Unlocking Vector (PUV)](###Primary-Unlocking-Vector-(PUV))
-[Primary Functions](##Primary-Functions)
-[Conditions Met Vector (CMV)](###Conditions-Met-Vector-(CMV))
-[Primary Unlocking Matrix (PUM)](###Primary-Unlocking-Matrix-(PUM))
-[Final Unlocking Vector (FUV)](###Final-Unlocking-Vector-(FUV))
-[Statement of Contributions](##Statement-of-Contributions)
+- [What is this Project?](#What-is-this-Project?)   
+- [How it Works](#How-it-Works)   
+- [Input Data](#Input-Data)   
+    - [Launch Interceptor Conditions (LIC)](#Launch-Interceptor-Conditions-(LIC))   
+    - [Logical Connector Matrix (LCM)](#Logical-Connector-Matrix-(LCM))   
+    - [Primary Unlocking Vector (PUV)](#Primary-Unlocking-Vector-(PUV))
+- [Primary Functions](#Primary-Functions)
+    - [Conditions Met Vector (CMV)](#Conditions-Met-Vector-(CMV))
+    - [Primary Unlocking Matrix (PUM)](#Primary-Unlocking-Matrix-(PUM))
+    - [Final Unlocking Vector (FUV)](#Final-Unlocking-Vector-(FUV))
+- [Statement of Contributions](#Statement-of-Contributions)
 
 ## What is this Project?
 This repository contains the code for a function written 
