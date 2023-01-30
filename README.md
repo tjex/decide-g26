@@ -224,6 +224,12 @@ software engineering problems that needed to be addressed, such as implementing 
 However, due to the fluidity in our communication channels and organisation via the GitHub issue tracker and 
 projects, our productivity and efficiency remained on its positive trend through to the end of the assignment.
 
+As a team, the state we are in is excellent. We communicate well and understand each others skill sets. We have 
+shown that we are all comfortable with the tools we have chosen to work with and are looking forward to further 
+optimize our workflow in the comming assignment. For the next assignment we will work on a more refined 
+issuing of tasks, as with this project there was a lot of cross-over between tasks, which occasionally caused 
+confusion and lead to merge conflicts and increased communication time to debug.
+
 ## Statement of Contributions
 
 We as a team agree that we have undertaken a successuful collaboration and learnt 
