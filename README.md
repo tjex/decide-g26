@@ -12,6 +12,7 @@
     - [Conditions Met Vector (CMV)](#Conditions-Met-Vector-CMV)
     - [Primary Unlocking Matrix (PUM)](#Primary-Unlocking-Matrix-PUM)
     - [Final Unlocking Vector (FUV)](#Final-Unlocking-Vector-FUV)
+- [Our Way of Working](#our-way-of-working)
 - [Statement of Contributions](#Statement-of-Contributions)
 
 ## What is this Project?
@@ -210,6 +211,18 @@ point the defensive projectile is cleared for launch.
     }
 ```
 
+## Our Way of Working
+
+We are pleased with the structure and workflow that we implemented within this assignment.
+On the first day we established principles for the team to follow (eg. a protocol for missed work days, 
+remote vs IRL group work and a git commit formatting structure) as well as agreed on the tools we were to use 
+(GitHub, GitHub Projects, Discord and Java).   
+
+We found that we were quite reliable in following the above structures, although the git commit formatting
+did get forgotten occasionally. Due to the short timeline, we did desynchronise our group approach to overarching 
+software engineering problems that needed to be addressed, such as implementing a test framework and unit tests.   
+However, due to the fluidity in our communication channels and organisation via the GitHub issue tracker and 
+projects, our productivity and efficiency remained on its positive trend through to the end of the assignment.
 
 ## Statement of Contributions
 
