@@ -133,7 +133,7 @@ public class CMV {
                     quadrants.add(quadrant);
                 }
             }
-            System.out.println(quadrants);
+            
             if(quadrants.size() == QUADS){
                 return true;
             }
