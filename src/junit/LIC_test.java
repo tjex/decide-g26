@@ -23,9 +23,56 @@ public class LIC_test {
     * -----------------------------------------------------------------------------
     */
 
+    @Test
+    public void test_lic0(){
+        Parameters.LENGTH1 = 5;
+        int[][] datapoints1 = {{1,0},{7,0},{5,0},{5,0}};
+        CMV cmv1 = new CMV(datapoints1);
+
+        int[][] datapoints2 = {{1,0},{0,0},{5,0},{5,0}};
+        CMV cmv2 = new CMV(datapoints2);
+
+        int[][] datapoints3 = {{1,0},{3,0},{5,0},{5,0}};
+        CMV cmv3 = new CMV(datapoints3);
+
+        int[][] datapoints4 = {{0,0},{1,0},{2,0},{3,0},{4,0},{5,0},{6,0},{7,0}};
+        CMV cmv4 = new CMV(datapoints4);
+
+        //there are two consecutive points where the distance is 6>LENGTH1 should return true in LIC
+        assertTrue(cmv1.get_cmv_value(0));
+        //distance is exactly = LENGTH1, should therefore return false
+        assertFalse(cmv2.get_cmv_value(0));
+        //distance less than LENGTH1, should return false
+        assertFalse(cmv3.get_cmv_value(0));
+        //such points exist but they are not consecutive, should return false
+        assertFalse(cmv4.get_cmv_value(0));
+    }
+
     /*LIC 1
     * -----------------------------------------------------------------------------
     */
+
+    @Test
+    public void test_lic1(){
+        Parameters.RADIUS1 = 1; 
+
+        int[][] datapoints1 = {{0,0},{5,5},{-5,-5},{-5,5},{0,1}};
+        CMV cmv1 = new CMV(datapoints1);
+        
+        Parameters.RADIUS1 = 1000000;
+        int[][] datapoints2 = {{0,0},{5,6},{-5,-5},{-5,5},{0,1}};
+        CMV cmv2 = new CMV(datapoints2);
+
+        int[][] datapoints3 = {{0,0},{5,5},{-5,-5},{0,1}};
+        CMV cmv3 = new CMV(datapoints3);
+
+        //the three points in the middle cannot be contained in circle with RADIUS1 = 1, should return true
+        assertTrue(cmv1.get_cmv_value(1));
+        //huge circle, points should certainly be inside it, should return false
+        assertFalse(cmv2.get_cmv_value(1));
+        //no matter the size of the circle, there's no circle for points on a straight line, should return true (cannot)
+        assertTrue(cmv3.get_cmv_value(1));
+    }
 
     /*LIC 2
     * -----------------------------------------------------------------------------
