@@ -94,4 +94,28 @@ public class Helper_Function_Test {
 
         assertEquals(Helper_Functions.triangle_vertex_area(a1, b1, c1), 16, 0.1);
     }
+    /*
+     * Test logic of quadrant evaluation from quadEvaluation().
+     */
+    @Test
+    public void test_quadEvaluation(){
+        int[] datapoint1 = {1,1}; //quadrant: 1
+        int[] datapoint2 = {-1,1}; //quadrant: 2
+        int[] datapoint3 = {-1,-1}; //quadrant: 3
+        int[] datapoint4 = {1,-1}; //quadrant: 4
+        int[] datapoint5 = {0,0}; //quadrant: 1
+        int[] datapoint6 = {-1,0}; //quadrant: 2
+        int[] datapoint7 = {0,-1}; //quadrant: 3
+        int[] datapoint8 = {0,1}; //quadrant: 1
+        int[] datapoint9 = {1,0}; //quadrant: 1
+        assertEquals(Helper_Functions.quadEvaluation(datapoint1), 1);
+        assertEquals(Helper_Functions.quadEvaluation(datapoint2), 2);
+        assertEquals(Helper_Functions.quadEvaluation(datapoint3), 3);
+        assertEquals(Helper_Functions.quadEvaluation(datapoint4), 4);
+        assertEquals(Helper_Functions.quadEvaluation(datapoint5), 1);
+        assertEquals(Helper_Functions.quadEvaluation(datapoint6), 2);
+        assertEquals(Helper_Functions.quadEvaluation(datapoint7), 3);
+        assertEquals(Helper_Functions.quadEvaluation(datapoint8), 1);
+        assertEquals(Helper_Functions.quadEvaluation(datapoint9), 1);
+    }
 }
