@@ -120,7 +120,7 @@ public class CMV {
         int quadrant;
         ArrayList<Integer> quadrants = new ArrayList<>(3);
         for (int i = 0; i < datapoints.length; i++){ 
-            quadrants.add(quadEvaluation(datapoints[i]));
+            quadrants.add(Helper_Functions.quadEvaluation((datapoints[i])));
             for (int j = i+1; j < i + Q_PTS; j++){
                 if(j > datapoints.length - 1){
                     continue;
@@ -128,7 +128,7 @@ public class CMV {
                 if(quadrants.size() == QUADS){
                     return true;
                 }
-                quadrant = quadEvaluation(datapoints[j]);
+                quadrant = Helper_Functions.quadEvaluation(datapoints[j]);
                 if(!quadrants.contains(quadrant)){
                     quadrants.add(quadrant);
                 }
@@ -143,25 +143,7 @@ public class CMV {
         return false;
     }
     
-    /*
-     * @param int[] datapoint 
-     * Takes in a datapoint and determines which quadrant it belongs to.
-     * Returns a int between 1-4.
-     */
-    public int quadEvaluation(int[] datapoint){
-        if(datapoint[0] >= 0 && datapoint[1] >= 0){
-            return 1;
-        }
-        else if(datapoint[0] <= 0 && datapoint[1] >= 0){
-            return 2;
-        }
-        else if(datapoint[0] <= 0 && datapoint[1] <= 0){
-            return 3;
-        }
-        else{
-            return 4;
-        }
-    }
+    
     /*
      * Returns true if two adjecent datapoints I and I+1 fullfills the
      * condition datapoints[I+1][0] - datapoints[I][0] < 0. These values
