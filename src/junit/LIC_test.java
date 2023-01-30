@@ -58,10 +58,20 @@ public class LIC_test {
 
         int[][] datapoints1 = {{0,0},{5,5},{-5,-5},{-5,5},{0,1}};
         CMV cmv1 = new CMV(datapoints1);
+        
+        Parameters.RADIUS1 = 1000000;
+        int[][] datapoints2 = {{0,0},{5,6},{-5,-5},{-5,5},{0,1}};
+        CMV cmv2 = new CMV(datapoints2);
 
-        //the three points in the middle cannot be contained in circle with RADIUS1 = 1
-        //should return false
-        assertFalse(cmv1.get_cmv_value(1));
+        int[][] datapoints3 = {{0,0},{5,5},{-5,-5},{0,1}};
+        CMV cmv3 = new CMV(datapoints3);
+
+        //the three points in the middle cannot be contained in circle with RADIUS1 = 1, should return true
+        assertTrue(cmv1.get_cmv_value(1));
+        //huge circle, points should certainly be inside it, should return false
+        assertFalse(cmv2.get_cmv_value(1));
+        //no matter the size of the circle, there's no circle for points on a straight line, should return true (cannot)
+        assertTrue(cmv3.get_cmv_value(1));
     }
 
     /*LIC 2
