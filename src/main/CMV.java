@@ -463,7 +463,7 @@ public class CMV {
         boolean checkA2 = false;
         for(int i = 0; i < datapoints.length; i++){
             int j = i + E_PTS + 1;
-            int k = i + F_PTS + 1;
+            int k = j + F_PTS + 1;
             if(j > datapoints.length - 1 || k > datapoints.length - 1){
                 break;
             }
