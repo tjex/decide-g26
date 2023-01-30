@@ -57,4 +57,24 @@ public class Helper_Functions {
     public static double triangle_vertex_area(int[] first, int[] second, int[] third){
         return ((double) 1/2) * (Math.abs(first[0]*(second[1]-third[1])+second[0]*(third[1]-first[1])+third[0]*(first[1]-second[1])));
     }
+
+    /*
+     * @param int[] datapoint 
+     * Takes in a datapoint and determines which quadrant it belongs to.
+     * Returns a int between 1-4.
+     */
+    public static int quadEvaluation(int[] datapoint){
+        if(datapoint[0] >= 0 && datapoint[1] >= 0){
+            return 1;
+        }
+        else if(datapoint[0] <= 0 && datapoint[1] >= 0){
+            return 2;
+        }
+        else if(datapoint[0] <= 0 && datapoint[1] <= 0){
+            return 3;
+        }
+        else{
+            return 4;
+        }
+    }
 }

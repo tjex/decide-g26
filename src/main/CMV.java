@@ -1,7 +1,10 @@
 package main;
 
 
+import java.util.ArrayList;
+
 import java.util.Arrays;
+
 
 public class CMV {
     
@@ -37,6 +40,7 @@ public class CMV {
     public boolean get_cmv_value(int lic_number){
         return cmv_vector[lic_number];
     }
+
 
     private boolean lic0_calculate() {
         for (int j = 1; j < this.datapoints.length; j++){ 
@@ -101,9 +105,45 @@ public class CMV {
         return false;
     }
 
-    private Boolean lic4_calculate() {
+    /*
+     * Return true if Q_PTS consecutive datapoints lie in QUAD different quadrants.
+     * This is done through having a nested for loop which takes a set of datapoints
+     * of size Q_PTS and iterates through them. Each unique beloning quadrant is stored
+     * in a ArrayList where the size of it gets compared to QUAD. If the size = QUAD return
+     * true, else continue or return false.   
+     * 
+     */
+
+     private Boolean lic4_calculate() {
+        final int Q_PTS = Parameters.Q_PTS;
+        final int QUADS = Parameters.QUADS;
+        int quadrant;
+        ArrayList<Integer> quadrants = new ArrayList<>(3);
+        for (int i = 0; i < datapoints.length; i++){ 
+            quadrants.add(Helper_Functions.quadEvaluation((datapoints[i])));
+            for (int j = i+1; j < i + Q_PTS; j++){
+                if(j > datapoints.length - 1){
+                    continue;
+                }
+                if(quadrants.size() == QUADS){
+                    return true;
+                }
+                quadrant = Helper_Functions.quadEvaluation(datapoints[j]);
+                if(!quadrants.contains(quadrant)){
+                    quadrants.add(quadrant);
+                }
+            }
+            
+            if(quadrants.size() == QUADS){
+                return true;
+            }
+            quadrant = -1;
+            quadrants.clear();
+        }
         return false;
     }
+    
+    
     /*
      * Returns true if two adjecent datapoints I and I+1 fullfills the
      * condition datapoints[I+1][0] - datapoints[I][0] < 0. These values
@@ -169,8 +209,30 @@ public class CMV {
 
         return false;
     }
+    /*
+     * Returns true if there exist two datapoints (I,J), seperated by K_PTS datapoints,
+     * that are at a distance greater than LENGTH1. 
+     */
     
-    private Boolean lic7_calculate() {
+    private boolean lic7_calculate() {
+        
+        final int K_PTS = Parameters.K_PTS;
+        final double LENGTH1 = Parameters.LENGTH1;
+        if(datapoints.length < 3){
+            return false;
+        }
+        for(int i = 0; i < datapoints.length; i++){
+            int j = i + K_PTS + 1;
+            if(j > datapoints.length - 1){
+                break;
+            }
+            
+            int[] vectorIJ = Helper_Functions.vector_subtraction(datapoints[j],datapoints[i]);
+            double magnitudeIJ = Helper_Functions.vector_magnitude(vectorIJ);
+            if(magnitudeIJ > LENGTH1){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -288,7 +350,14 @@ public class CMV {
         }
         return false;
     }
-    
+    /* 
+     * The function returns true if both checkBigger and checkSmaller is true:
+     * 1. checkBigger is true if there exist two datapoints, seperated by K_PTS
+     * datapoints, has a magnitude > LENGTH1.
+     * 2. checkSmaller is true if there exist two datapoints, seperated by K_PTS
+     * datapoints, has a magnitude < LENGTH2.
+     * Returns false if 1. or 2. is not meet.
+     */
     public boolean lic12_calculate() {
         boolean checkBigger = false;
         boolean checkSmaller = false;
@@ -315,9 +384,52 @@ public class CMV {
         return false;
     }
 
+    /*
+        Returns true if the following requirements are fulfilled:
+        1.  There exists at least one set of three data points,
+            separated by exactly A PTS and B PTS consecutive intervening points
+            that cannot be contained within or on a circle of radius RADIUS1.
+        2.  There exists at least one set of three data points,
+            separated by exactly A PTS and B PTS consecutive intervening points
+            that can be contained in or on a circle of radius RADIUS2.
+        3.  NUMPOINTS > 5
+     */
     private Boolean lic13_calculate() {
+        if(datapoints.length < 5){
+            return false;
+        }
+
+        boolean requirement_1 = false;
+        boolean requirement_2 = false;
+
+        for (int i = 0; i < this.datapoints.length-Parameters.A_PTS-Parameters.B_PTS - 2; i++) {
+            int p2_index = i + Parameters.A_PTS + 1;
+            int p3_index = p2_index + Parameters.B_PTS + 1;
+
+            int[] p1 = this.datapoints[i];
+            int[] p2 = this.datapoints[p2_index];
+            int[] p3 = this.datapoints[p3_index];
+            double radius = Helper_Functions.circumscribed_circle_radius(p1,p2,p3);
+
+            // if the radius of the circle going through all the points is larger than RADIUS1
+            // the points can't be contained within a circle with RADIUS
+            if (radius > Parameters.RADIUS1){
+                requirement_1 = true;
+            }
+
+            if(radius <= Parameters.RADIUS2){
+                requirement_2 = true;
+            }
+
+            if(requirement_1 && requirement_2){
+                return true;
+            }
+        }
+
+
         return false;
     }
+
     /* 
      * Returns a boolean which has two requirment to be true:
      * 1. There exist a triplet of dataset i, j, k which make up a area bigger than AREA1
@@ -333,7 +445,7 @@ public class CMV {
         boolean checkA2 = false;
         for(int i = 0; i < datapoints.length; i++){
             int j = i + E_PTS + 1;
-            int k = i + F_PTS + 1;
+            int k = j + F_PTS + 1;
             if(j > datapoints.length - 1 || k > datapoints.length - 1){
                 break;
             }

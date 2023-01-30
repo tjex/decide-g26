@@ -19,8 +19,16 @@ public class LIC_test {
         assertTrue(cmv.get_cmv_value(5));
     }
 
+    /*LIC 0
+    * -----------------------------------------------------------------------------
+    */
+
+    /*LIC 1
+    * -----------------------------------------------------------------------------
+    */
+
     /*LIC 2
-    * -------------------------------------------------
+    * -----------------------------------------------------------------------------
     * Checks the condition angle < PI-EPSILON = (3/4)*PI, which is bigger 
     * than 90 degress = PI/2. This should return true since condition is meet.
     */
@@ -57,6 +65,9 @@ public class LIC_test {
         CMV cmv = new CMV(datapoints);
         assertFalse(cmv.get_cmv_value(2));
     }
+    /*LIC 3
+    * -------------------------------------------------
+    */
 
     @Test
     public void test_lic3(){
@@ -79,6 +90,34 @@ public class LIC_test {
         assertFalse(cmv3.get_cmv_value(3));
         
     }
+    /* LIC 4
+     * -------------------------------------------------------------------------
+     * Take the whole set of datapoints {{1,1},{-1,1},{-1,-1}}, which belong to
+     * 3 unique quadrants. This should return true since it's 3 distinct quadrants,
+     * which is equal to QUADS.
+     */
+    @Test
+    public void checkIfValidGivesTrueLic4(){
+        Parameters.Q_PTS = 3;
+        Parameters.QUADS = 3;
+        int[][] datapoints = {{1,1},{-1,1},{-1,-1}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(4));
+    }
+    /* LIC 4
+     * Take the whole set of datapoints {{1,1},{0,-1},{-1,-1}, which belong to
+     * 2 unique quadrants. This should return false since it's 2 distinct quadrants,
+     * which is not equal to QUADS.
+     */
+    @Test
+    public void checkIfInvalidGivesFalseLic4(){
+        Parameters.Q_PTS = 3;
+        Parameters.QUADS = 3;
+        int[][] datapoints = {{1,1},{0,-1},{-1,-1}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(4));
+    }
+
     /* LIC 5
      * --------------------------------------------------------------
      * checks if datapoints of descending order returns true. This 
@@ -104,184 +143,9 @@ public class LIC_test {
         assertFalse(cmv.get_cmv_value(5));
     }
 
-    @Test
-    public void test_lic9(){
-        Parameters.EPSILON = 0.5; //is this safe? will it set globally or just for this test?
-        //this epsilon allows angle to be < 2.64 and > 3.64
-        //this is very arbitrary since our formula calculates angles < pi
-        //how would you know that the outer angle should be used for the points?
-        Parameters.C_PTS = 2;
-        Parameters.D_PTS = 3;
-
-        int[][] datapoints1 = {{1,1}, {2,2}, {3,3}};
-        CMV cmv1 = new CMV(datapoints1);
-        
-
-        int[][] datapoints2 = {{1,1}, {2,2}, {3,3}, {1,1}, {2,2}, {3,3}, {1,1}, {2,2}, {3,3}};
-        CMV cmv2 = new CMV(datapoints2);
-
-        //90deg=1.57rad angle < 3.14 - EPSILON
-        int[][] datapoints3 = {{1,1}, {0,0}, {0,0}, {1,3}, {0,0}, {0,0}, {0,0}, {3,3}}; 
-        CMV cmv3 = new CMV(datapoints3);
-
-        int[][] datapoints4 = {{0,1}, {0,0}, {0,0}, {2,3}, {0,0}, {0,0}, {0,0}, {4,4}}; 
-        CMV cmv4 = new CMV(datapoints4);
-        
-        
-        //condition should not be met when datapoints are fewer than 5
-        assertFalse(cmv1.get_cmv_value(9)); 
-        //points where the ones divided by the boundaries do not have the required angle
-        assertFalse(cmv2.get_cmv_value(9)); 
-        //the required points have a 90 degree angle which is ~1.57 radians which is less than 2.64
-        assertTrue(cmv3.get_cmv_value(9));
-        //points with a very obtuse angle almost 180deg which is more than 2.64 and below 3.64, should be false 
-        assertFalse(cmv4.get_cmv_value(9)); 
-
-    }
-
-    /* LIC 11
-    *  Test wheter {3,0} and {2,0}, which are seperated by three datapoints, 
-    *  will yield true in the function lic11_calculate(). This since 2 - 3 < 0
-    *  which fullfills the requirment of being less than 0.  
-    */
-    @Test
-    public void checkIfValidGivesTrueLic11(){
-        Parameters.G_PTS = 3;
-        int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{2,0}};
-        Parameters.G_PTS = 3;
-        CMV cmv = new CMV(datapoints);
-        assertTrue(cmv.get_cmv_value(11));
-    }
-    /* LIC 11
-    *  Test wheter {3,0} and {4,0}, which are seperated by three datapoints, 
-    *  will yield false in the function lic11_calculate(). This since 4 - 3 > 0
-    *  and function returns true on less than 0.  
-    */
-    @Test
-    public void checkIfInvalidGivesFalseLic11(){
-        Parameters.G_PTS = 3;
-        int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{4,0}};
-        Parameters.G_PTS = 3;
-        CMV cmv = new CMV(datapoints);
-        assertFalse(cmv.get_cmv_value(11));
-    }
-    /* LIC14
-     * ------------------------------------------------------------------------
-     * Test wheter the area made form 3 data points (i,j,k) is returning true.
-     * i = {-3,0}, j = {0,3}, k = {3,0}, where j is seperated by 1 and k by 3
-     * from current datapoint. This should return true since made area = 9,
-     * which is more than 4 (AREA1) and less than 10 (AREA2).
-     */
-    @Test
-    public void checkAreaInBetweenIsTrue(){
-        Parameters.E_PTS = 1;
-        Parameters.F_PTS = 3;
-        Parameters.AREA1 = 4;
-        Parameters.AREA2 = 10;
-        int[][] datapoints = {{-3,0},{0,0},{0,3},{0,0},{3,0}};
-        CMV cmv = new CMV(datapoints);
-        assertTrue(cmv.get_cmv_value(14));
-    }
-    /* 
-     * Test wheter the area made form 3 data points (i,j,k) is returning false.
-     * i = {-6,0}, j = {0,6}, k = {6,0}, where j is seperated by 1 and k by 3
-     * from current datapoint. This should return false since made area = 36,
-     * which is more than 10 (AREA2).
-     */
-    @Test
-    public void checkAreaIsOverFalse(){
-        Parameters.E_PTS = 1;
-        Parameters.F_PTS = 3;
-        Parameters.AREA1 = 4;
-        Parameters.AREA2 = 10;
-        int[][] datapoints = {{-6,0},{0,0},{0,6},{0,0},{6,0}};
-        CMV cmv = new CMV(datapoints);
-        assertFalse(cmv.get_cmv_value(14));
-    }
-    /* 
-     * Test wheter the area made form 3 data points (i,j,k) is returning false.
-     * i = {-1,0}, j = {0,1}, k = {1,0}, where j is seperated by 1 and k by 3
-     * from current datapoint. This should return false since made area = 1,
-     * which is less than 4 (AREA1).
-     */
-    public void checkAreaIsUnderFalse(){
-        Parameters.E_PTS = 1;
-        Parameters.F_PTS = 3;
-        Parameters.AREA1 = 2;
-        Parameters.AREA2 = 5;
-        int[][] datapoints = {{-1,0},{0,0},{0,1},{0,1},{1,0}};
-        CMV cmv = new CMV(datapoints);
-        assertFalse(cmv.get_cmv_value(14));
-    }
-
-    /*LIC 12
-    //-------------------------------------------------
-     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
-     * 2 and 5. This should return true since index 1 and 4 gives magnitude 2 < sqrt(18) < 5
-     */
-    @Test
-    public void checkInvalidDistancebetweenLic12(){
-        Parameters.K_PTS = 2;
-        Parameters.LENGTH1 = 2;
-        Parameters.LENGTH2 = 5;
-        int[][] datapoints = {{0,0},{4,4},{0,0},{0,0},{1,1}};
-        CMV cmv = new CMV(datapoints);
-        assertTrue(cmv.get_cmv_value(12));
-    }
-    /*
-     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
-     * 2 and 5. This should return false since all magnitude is over 5. 
-     */
-    @Test
-    public void checkInvalidDistanceOverLic12(){
-        Parameters.K_PTS = 2;
-        Parameters.LENGTH1 = 2;
-        Parameters.LENGTH2 = 5;
-        int[][] datapoints = {{2,2},{2,2},{2,2},{10,10},{10,10}};
-        CMV cmv = new CMV(datapoints);
-        assertFalse(cmv.get_cmv_value(12));
-    }
-    /*
-     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
-     * 2 and 5. This should return false since all magnitude is under 2. 
-     */
-    @Test
-    public void checkInvalidDistanceUnderLic12(){
-        Parameters.K_PTS = 2;
-        Parameters.LENGTH1 = 2;
-        Parameters.LENGTH2 = 5;
-        int[][] datapoints = {{0,0},{2,2},{0,0},{0,0},{1,1}};
-        CMV cmv = new CMV(datapoints);
-        assertFalse(cmv.get_cmv_value(12));
-    }
-
-    @Test
-    public void test_lic_10(){
-        Parameters.E_PTS = 2;
-        Parameters.F_PTS = 3;
-        Parameters.AREA1 = 14;
-
-        int[][] datapoints1 = {{-4,0}, {0,0}, {0,0}, {4,0}, {0,0}, {0,0}, {0,0}, {0,4}, {0,0}};
-        CMV cmv1 = new CMV(datapoints1);
-
-        int[][] datapoints2 = {{-1,0}, {0,0}, {0,0}, {1,0}, {0,0}, {0,0}, {0,0}, {0,4}, {0,0}};
-        CMV cmv2 = new CMV(datapoints2);
-
-        int[][] datapoints3 = {{-4,0}, {0,0}, {0,0}, {0,0}, {4,0}, {0,0}, {0,0}, {0,4}, {0,0}};
-        CMV cmv3 = new CMV(datapoints3);
-
-        //this should pass, we have a triangle with area 16 which is bigger than AREA1=14
-        assertTrue(cmv1.get_cmv_value(10));
-        //this should fail, we have a triangle with area 4
-        assertFalse(cmv2.get_cmv_value(10));
-        //this should fail, the area is correct however, the points are not spaced exactly with
-        //E_PTS and F_PTS points apart
-        assertFalse(cmv3.get_cmv_value(10));
-    }
-
-
     /**
      *  LIC 6
+     * -------------------------------------------------------
      *  Tests the LIC6 parameter requirements.
      * 
      *  - 3 <= N_PTS <= NUMPOINTS
@@ -361,9 +225,41 @@ public class LIC_test {
         cmv = new CMV(data_points);
         assertEquals(false, cmv.get_cmv_value(6));
     }
+    
+    /* LIC 7
+    *  ------------------------------------------------------------------------------------------
+    *  Checks if index 0 and index 4 both satisfied the two conditions of lic7_calculate:
+    *  1. index has to be seperated by K_PTS = 3 => true for datasets.
+    *  2. the distance created with the two datapoints > LENGTH1 => 8 > 2
+    *  Since both conditions is fullfilled the test should be asserted to true.
+    */
+    @Test
+    public void checkIfValidGivesTrueLic7(){
+        Parameters.K_PTS = 3;
+        Parameters.LENGTH1 = 2;
+        int[][] datapoints = {{1,0},{0,0},{0,0},{0,0},{5,0}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(7));
+    }
+
+    /* LIC 7
+    *  Checks if index 0 and index 4 both satisfies the two conditions of lic7_calculate:
+    *  1. index has to be seperated by K_PTS = 3 => true for datasets.
+    *  2. the distance created with the two datapoints > LENGTH1 => sqrt(2) < 2 
+    *  Since both conditions isn't fullfilled the test should be asserted to false.
+    */
+    @Test
+    public void checkIfInvalidGivesFalseLic7(){
+        Parameters.K_PTS = 3;
+        Parameters.LENGTH1 = 2;
+        int[][] datapoints = {{0,1},{0,0},{0,0},{0,0},{1,0}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(7));
+    }
 
     /**
      *  LIC 8
+     * ------------------------------------------------------------------------------
      *  Test a set of points which are expected to return true.
      */
     @Test()
@@ -397,5 +293,259 @@ public class LIC_test {
         assertEquals(false, cmv.get_cmv_value(8));
     }
 
-}
+    /*LIC 9
+    * -----------------------------------------------------------------------------------
+    */
+    @Test
+    public void test_lic9(){
+        Parameters.EPSILON = 0.5; //is this safe? will it set globally or just for this test?
+        //this epsilon allows angle to be < 2.64 and > 3.64
+        //this is very arbitrary since our formula calculates angles < pi
+        //how would you know that the outer angle should be used for the points?
+        Parameters.C_PTS = 2;
+        Parameters.D_PTS = 3;
 
+        int[][] datapoints1 = {{1,1}, {2,2}, {3,3}};
+        CMV cmv1 = new CMV(datapoints1);
+        
+
+        int[][] datapoints2 = {{1,1}, {2,2}, {3,3}, {1,1}, {2,2}, {3,3}, {1,1}, {2,2}, {3,3}};
+        CMV cmv2 = new CMV(datapoints2);
+
+        //90deg=1.57rad angle < 3.14 - EPSILON
+        int[][] datapoints3 = {{1,1}, {0,0}, {0,0}, {1,3}, {0,0}, {0,0}, {0,0}, {3,3}}; 
+        CMV cmv3 = new CMV(datapoints3);
+
+        int[][] datapoints4 = {{0,1}, {0,0}, {0,0}, {2,3}, {0,0}, {0,0}, {0,0}, {4,4}}; 
+        CMV cmv4 = new CMV(datapoints4);
+        
+        
+        //condition should not be met when datapoints are fewer than 5
+        assertFalse(cmv1.get_cmv_value(9)); 
+        //points where the ones divided by the boundaries do not have the required angle
+        assertFalse(cmv2.get_cmv_value(9)); 
+        //the required points have a 90 degree angle which is ~1.57 radians which is less than 2.64
+        assertTrue(cmv3.get_cmv_value(9));
+        //points with a very obtuse angle almost 180deg which is more than 2.64 and below 3.64, should be false 
+        assertFalse(cmv4.get_cmv_value(9)); 
+
+    }
+    /*LIC 10
+    * --------------------------------------------------------------------------------
+    */
+
+    @Test
+    public void test_lic_10(){
+        Parameters.E_PTS = 2;
+        Parameters.F_PTS = 3;
+        Parameters.AREA1 = 14;
+
+        int[][] datapoints1 = {{-4,0}, {0,0}, {0,0}, {4,0}, {0,0}, {0,0}, {0,0}, {0,4}, {0,0}};
+        CMV cmv1 = new CMV(datapoints1);
+
+        int[][] datapoints2 = {{-1,0}, {0,0}, {0,0}, {1,0}, {0,0}, {0,0}, {0,0}, {0,4}, {0,0}};
+        CMV cmv2 = new CMV(datapoints2);
+
+        int[][] datapoints3 = {{-4,0}, {0,0}, {0,0}, {0,0}, {4,0}, {0,0}, {0,0}, {0,4}, {0,0}};
+        CMV cmv3 = new CMV(datapoints3);
+
+        //this should pass, we have a triangle with area 16 which is bigger than AREA1=14
+        assertTrue(cmv1.get_cmv_value(10));
+        //this should fail, we have a triangle with area 4
+        assertFalse(cmv2.get_cmv_value(10));
+        //this should fail, the area is correct however, the points are not spaced exactly with
+        //E_PTS and F_PTS points apart
+        assertFalse(cmv3.get_cmv_value(10));
+    }
+
+    /* LIC 11
+    *  ------------------------------------------------------------------------
+    *  Test wheter {3,0} and {2,0}, which are seperated by three datapoints, 
+    *  will yield true in the function lic11_calculate(). This since 2 - 3 < 0
+    *  which fullfills the requirment of being less than 0.  
+    */
+    @Test
+    public void checkIfValidGivesTrueLic11(){
+        Parameters.G_PTS = 3;
+        int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{2,0}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(11));
+    }
+    /* 
+    *  Test wheter {3,0} and {4,0}, which are seperated by three datapoints, 
+    *  will yield false in the function lic11_calculate(). This since 4 - 3 > 0
+    *  and function returns true on less than 0.  
+    */
+    @Test
+    public void checkIfInvalidGivesFalseLic11(){
+        Parameters.G_PTS = 3;
+        int[][] datapoints = {{3,0},{0,0},{0,0},{0,0},{4,0}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(11));
+    }
+
+    /*LIC 12
+    //-------------------------------------------------
+     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
+     * 2 and 5. This should return true since index 1 and 4 gives magnitude 2 < sqrt(18) < 5
+     */
+    @Test
+    public void checkInvalidDistancebetweenLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{0,0},{4,4},{0,0},{0,0},{1,1}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(12));
+    }
+    /*
+     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
+     * 2 and 5. This should return false since all magnitude is over 5. 
+     */
+    @Test
+    public void checkInvalidDistanceOverLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{2,2},{2,2},{2,2},{10,10},{10,10}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(12));
+    }
+    /*
+     * Checks if two datapoints exits, seperated by 2, will have a magnitude between 
+     * 2 and 5. This should return false since all magnitude is under 2. 
+     */
+    @Test
+    public void checkInvalidDistanceUnderLic12(){
+        Parameters.K_PTS = 2;
+        Parameters.LENGTH1 = 2;
+        Parameters.LENGTH2 = 5;
+        int[][] datapoints = {{0,0},{2,2},{0,0},{0,0},{1,1}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(12));
+    }
+
+    /*LIC 13
+    //-------------------------------------------------
+            Test that invalid data returns false
+            Data has to follow the following requirements:
+            1. 5 <= NUMPOINTS
+     */
+    @Test
+    public void check_lic13_input_requirements(){
+        int[][] data_points_1 = new int[][] {{0, 2}, {1, 0}, {0, 0}};
+
+        Parameters.A_PTS = 1;
+        Parameters.B_PTS = 1;
+        Parameters.RADIUS1 = 2;
+
+        CMV cmv = new CMV(data_points_1);
+        assertEquals(false, cmv.get_cmv_value(13));
+    }
+
+
+    /*
+        Test that invalid data returns false
+        The following is required for valid data:
+        1.  There exists at least one set of three data points,
+            separated by exactly A PTS and B PTS consecutive intervening points
+            that cannot be contained within or on a circle of radius RADIUS1.
+        2.  There exists at least one set of three data points,
+            separated by exactly A PTS and B PTS consecutive intervening points
+            that can be contained in or on a circle of radius RADIUS2.
+
+     */
+    @Test
+    public void check_lic13_invalid_data_returns_false(){
+        // Only set of data points seperated by A and B points is ((0,3),(3,0),(-3,0))
+        // The set can be contained by a circle of radius 3 minimum.
+        int[][] data_points= new int[][] {{0, 3}, {1, 0}, {3, 0}, {0,9}, {-3, 0}};
+
+        Parameters.A_PTS = 1;
+        Parameters.B_PTS = 1;
+        Parameters.RADIUS1 = 6;
+        Parameters.RADIUS2 = 7;
+
+        CMV cmv = new CMV(data_points);
+        assertEquals(false, cmv.get_cmv_value(13));
+    }
+
+    /*
+        Test that invalid data returns false
+        The following is required for valid data:
+        1.  There exists at least one set of three data points,
+            separated by exactly A PTS and B PTS consecutive intervening points
+            that cannot be contained within or on a circle of radius RADIUS1.
+        2.  There exists at least one set of three data points,
+            separated by exactly A PTS and B PTS consecutive intervening points
+            that can be contained in or on a circle of radius RADIUS2.
+
+     */
+    @Test
+    public void check_lic13_valid_data_returns_true(){
+        // Only set of data points seperated by A and B points is ((0,3),(3,0),(-3,0))
+        // The set can be contained by a circle of radius 3 minimum.
+        int[][] data_points= new int[][] {{0, 3}, {1, 0}, {3, 0}, {0,9}, {-3, 0}};
+
+        Parameters.A_PTS = 1;
+        Parameters.B_PTS = 1;
+        Parameters.RADIUS1 = 2;
+        Parameters.RADIUS2 = 7;
+
+        CMV cmv = new CMV(data_points);
+        assertEquals(true, cmv.get_cmv_value(13));
+
+    }
+    /* LIC14
+     * ------------------------------------------------------------------------
+     * Test wheter the area made form 3 data points (i,j,k) is returning true.
+     * i = {-3,0}, j = {0,3}, k = {3,0}, where j is seperated by 1 and k by 3
+     * from current datapoint. This should return true since made area = 9,
+     * which is more than 4 (AREA1) and less than 10 (AREA2).
+     */
+    @Test
+    public void checkAreaInBetweenIsTrue(){
+        Parameters.E_PTS = 1;
+        Parameters.F_PTS = 1;
+        Parameters.AREA1 = 4;
+        Parameters.AREA2 = 10;
+        int[][] datapoints = {{-3,0},{0,0},{0,3},{0,0},{3,0}};
+        CMV cmv = new CMV(datapoints);
+        assertTrue(cmv.get_cmv_value(14));
+    }
+    /* 
+     * Test wheter the area made form 3 data points (i,j,k) is returning false.
+     * i = {-6,0}, j = {0,6}, k = {6,0}, where j is seperated by 1 and k by 3
+     * from current datapoint. This should return false since made area = 36,
+     * which is more than 10 (AREA2).
+     */
+    @Test
+    public void checkAreaIsOverFalse(){
+        Parameters.E_PTS = 1;
+        Parameters.F_PTS = 1;
+        Parameters.AREA1 = 4;
+        Parameters.AREA2 = 10;
+        int[][] datapoints = {{-6,0},{0,0},{0,6},{0,0},{6,0}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(14));
+    }
+    /* 
+     * Test wheter the area made form 3 data points (i,j,k) is returning false.
+     * i = {-1,0}, j = {0,1}, k = {1,0}, where j is seperated by 1 and k by 3
+     * from current datapoint. This should return false since made area = 1,
+     * which is less than 4 (AREA1).
+     */
+    public void checkAreaIsUnderFalse(){
+        Parameters.E_PTS = 1;
+        Parameters.F_PTS = 1;
+        Parameters.AREA1 = 2;
+        Parameters.AREA2 = 5;
+        int[][] datapoints = {{-1,0},{0,0},{0,1},{0,1},{1,0}};
+        CMV cmv = new CMV(datapoints);
+        assertFalse(cmv.get_cmv_value(14));
+    }
+
+    
+
+
+}
