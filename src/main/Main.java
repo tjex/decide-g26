@@ -29,7 +29,7 @@ public class Main {
         init_parameters();
     }
 
-    private boolean decide() {
+    public boolean decide() {
         //  1. Calculate the CMV
         CMV cmv = new CMV(Parameters.DATA_POINTS);
         boolean[] cmv_vec = getCMV(cmv);
