@@ -1,8 +1,24 @@
 # Decide()
 
-## What is Decide()?
-This repository contains the codebase for a function written 
-in Java called `Decide()`.
+## Table of Contents
+
+[What is this Project?](##What-is-this-Project?)
+[How it Works](##How-it-Works)
+[Input Data](##Input-Data)
+[Launch Interceptor Conditions (LIC)](###Launch-Interceptor-Conditions-(LIC))
+[Logical Connector Matrix (LCM)](###Logical-Connector-Matrix-(LCM))
+[Primary Unlocking Vector (PUV)](###Primary-Unlocking-Vector-(PUV))
+[Primary Functions](##Primary-Functions)
+[Conditions Met Vector (CMV)](###Conditions-Met-Vector-(CMV))
+[Primary Unlocking Matrix (PUM)](###Primary-Unlocking-Matrix-(PUM))
+[Final Unlocking Vector (FUV)](###Final-Unlocking-Vector-(FUV))
+[Statement of Contributions](##Statement-of-Contributions)
+
+## What is this Project?
+This repository contains the code for a function written 
+in Java called `Decide()`. The project is the first assignment for
+the Fundamentals of Software Engineering course at KTH, 
+taught by [Cyrille Artho](https://github.com/cyrille-artho).
 
 `Decide()` is used to determine whether a projectile should be launched 
 in order to intercept an incoming balistic missile. 
@@ -13,38 +29,82 @@ in order to intercept an incoming balistic missile.
 situation. If all combinations of launch conditions are met, `Decide()` will 
 issue a launch-unlock signal, enabling the launch of the defensive projectile. 
 
-This assessment is completed by systematic checks of data provided by six other functions 
-as outlined below. 
+This assessment is completed by the computations of given input data, handled by 
+six primary functions as outlined below. 
 
 ## Input Data
 
 ### Launch Interceptor Conditions (LIC)
 
-A set of 15 conditions which is used to confirm a launch or not.
+A set of 15 conditions which are used to confirm a launch or not. For a positive confirmation,
+all 15 conditions must register as being `true`.
 
 The conditions are calculated based on an input set of up to 100 data points 
 representing radar echos.
 
-`LICs` are calculated by `CMV.java` using data input of `int[][] planarDataPoints`.   
-See below.
+`LICs` are calculated by functions in `src/main/CMV.java` using data input of `int[][] planarDataPoints`.   
+Outlined under _Conditions Met Vector (CMV)_ below.
 
 ### Logical Connector Matrix (LCM)
 
 A 15x15 matrix of input data which is used to determine which individual `LICs` must be considered 
 jointly in order to assess a confirmation or denial of an individual launch condition.
 
-This data is dependant on the immediate threat environment.
+The `LCM` is subsequently used as input data for the `PUM` function outlined below.
+The `LCM` is outlined at `ref-docs/decide-3.pdf` page 5 and implemented in `src/main/Main.java`:
+
+```java
+// src/main/Main.java
+
+        // Fill LCM
+        // Following the Table 1 in decide.pdf
+        for(int i = 0; i < Parameters.LCM_MAT.length; i++)
+            for(int j = 0; j < Parameters.LCM_MAT.length; j++)
+                Parameters.LCM_MAT[i][j] = -1;
+        Parameters.LCM_MAT[0][0] = 1;
+        Parameters.LCM_MAT[0][1] = 1;
+        Parameters.LCM_MAT[0][2] = 0;
+        Parameters.LCM_MAT[0][3] = 1;
+
+        Parameters.LCM_MAT[1][0] = 1;
+        Parameters.LCM_MAT[1][1] = 1;
+        Parameters.LCM_MAT[1][2] = 0;
+        Parameters.LCM_MAT[1][3] = 0;
+
+        Parameters.LCM_MAT[2][0] = 0;
+        Parameters.LCM_MAT[2][1] = 0;
+        Parameters.LCM_MAT[2][2] = 1;
+        Parameters.LCM_MAT[2][3] = 1;
+
+        Parameters.LCM_MAT[3][0] = 1;
+        Parameters.LCM_MAT[3][1] = 0;
+        Parameters.LCM_MAT[3][2] = 1;
+        Parameters.LCM_MAT[3][3] = 1;
+
+```
+
 
 ### Primary Unlocking Vector (PUV)
 
 The `PUV` is a vector of type `bool`.   
-It is input data to the program, which defines which `LIC` (or multiple `LICs`) need 
-to be true given the immediate situation.
+It defines which `LIC` (or multiple `LICs`) need to be true given the immediate situation.
 
 The `PUV` indicates how to combine the elements of the `PUM` in order to create the 
-Final Unlocking Vector (outlined below). 
+Final Unlocking Vector. 
 
-## Functions
+```java
+// src/main/Main.java
+
+        // Fill PUV
+        for (int i = 0; i < Parameters.PUV_VEC.length; i++) {
+            if (i % 2 == 0)
+                Parameters.PUV_VEC[i] = true;
+            else
+                Parameters.PUV_VEC[i] = false;
+        }
+```
+
+## Primary Functions
 
 ### Conditions Met Vector (CMV)
 
