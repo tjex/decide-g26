@@ -1,4 +1,4 @@
-package main;
+package com.group26;
 
 public class Helper_Functions {
     // Calculates the radius of the smallest enclosing circle of the three points

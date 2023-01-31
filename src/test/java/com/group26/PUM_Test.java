@@ -1,10 +1,8 @@
-package junit;
+package com.group26;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
-import main.PUM;
 
 public class PUM_Test {
 

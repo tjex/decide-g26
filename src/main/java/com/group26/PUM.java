@@ -1,4 +1,4 @@
-package main;
+package com.group26;
 
 public class PUM {
     
