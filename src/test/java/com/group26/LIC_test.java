@@ -18,6 +18,8 @@ public class LIC_test {
 
     /*LIC 0
     * -----------------------------------------------------------------------------
+    * checks that LIC0 executes correctly, there should be points in the dataset that
+    * should have have a distance between each other longer than LENGTH1
     */
 
     @Test
@@ -47,6 +49,8 @@ public class LIC_test {
 
     /*LIC 1
     * -----------------------------------------------------------------------------
+    * Checks that LIC1 executes correctly, the points in datapoints should
+    * not be able to be circumscribed by a circle
     */
 
     @Test
