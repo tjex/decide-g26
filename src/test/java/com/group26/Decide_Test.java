@@ -1,11 +1,9 @@
-package junit;
-
-import static org.junit.Assert.assertEquals;
+package com.group26;
 
 import org.junit.Test;
 
-import main.Main;
-import main.Parameters;
+import static org.junit.Assert.assertEquals;
+
 
 public class Decide_Test {
  

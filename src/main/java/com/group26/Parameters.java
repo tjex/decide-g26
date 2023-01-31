@@ -1,4 +1,4 @@
-package main;
+package com.group26;
 
 public class Parameters {
     public static double LENGTH1;

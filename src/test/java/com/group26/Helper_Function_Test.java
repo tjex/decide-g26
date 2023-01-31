@@ -1,7 +1,6 @@
-package junit;
+package com.group26;
 
-import main.Helper_Functions;
-import org.junit.Assert;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

@@ -1,10 +1,7 @@
-package junit;
+package com.group26;
 
-import main.CMV;
-import main.Parameters;
+
 import org.junit.Test;
-import main.Parameters;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
