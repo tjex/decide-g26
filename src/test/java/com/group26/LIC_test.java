@@ -49,8 +49,9 @@ public class LIC_test {
 
     /*LIC 1
     * -----------------------------------------------------------------------------
-    * Checks that LIC1 executes correctly, the points in datapoints should
-    * not be able to be circumscribed by a circle
+    * Checks that LIC1 executes correctly,
+    * LIC1 should return true only if there exists a set of three consecutive data points
+    * that can't be contained by a circle of RADIUS1
     */
 
     @Test
@@ -77,7 +78,7 @@ public class LIC_test {
         assertTrue(cmv1.get_cmv_value(1));
         //huge circle, points should certainly be inside it, should return false
         assertFalse(cmv2.get_cmv_value(1));
-        //no matter the size of the circle, there's no circle for points on a straight line, should return true (cannot)
+        //test if function returns correct value for points lying in a straight line
         assertFalse(cmv3.get_cmv_value(1));
         //obtuse triangle that should have a radius of 100 thus RADIUS1 of 101 is larger and LIC1 should return false
         assertFalse(cmv3.get_cmv_value(1));
