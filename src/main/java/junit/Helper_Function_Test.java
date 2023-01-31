@@ -1,4 +1,4 @@
-package junit;
+package main.java.junit;
 
 import main.Helper_Functions;
 import org.junit.Assert;
