@@ -14,6 +14,7 @@
     - [Final Unlocking Vector (FUV)](#Final-Unlocking-Vector-FUV)
 - [Our Way of Working](#our-way-of-working)
 - [Statement of Contributions](#Statement-of-Contributions)
+- [Building](#Building)
 
 ## What is this Project?
 This repository contains the code for a function written 
@@ -284,3 +285,25 @@ given our lack of previous experience in such a scenario. For this we are proud.
     - Meeting moderation and adgenda creation
     - Author of the PUM function (code review by Anders)
 
+## Building
+
+For building and running this project the requirements are:
+
+- [Maven v3.8.6](https://maven.apache.org/docs/3.8.6/release-notes.html)
+- Java 19+
+
+### How to build and run
+
+1. Clone this repository.
+2. Import project as a Maven project with your desired IDE.
+3. Run `Main.java`.
+
+Or by manually running with maven:
+
+1. Clone this repository.
+2. Enter repository root `cd decide-g26`
+3. Compile with `mvn compile`
+4. Run the program `mvn exec:java -Dexec.mainClass=com.group26.Main`
+5. Test the program `mvn test`
+
+Windows PS users: use this command instead for running: `mvn exec:java -D"exec.mainClass"="com.group26.Main"`
