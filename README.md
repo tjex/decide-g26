@@ -300,6 +300,10 @@ For building and running this project the requirements are:
 
 Or by manually running with maven:
 
-1. Compile with `mvn compile`
-2. Run the program `mvn exec:java -Dexec.mainClass=com.group26.Main`
-3. Test the program `mvn test`
+1. Clone this repository.
+2. Enter repository root `cd decide-g26`
+3. Compile with `mvn compile`
+4. Run the program `mvn exec:java -Dexec.mainClass=com.group26.Main`
+5. Test the program `mvn test`
+
+Windows PS users: use this command instead for running: `mvn exec:java -D"exec.mainClass"="com.group26.Main"`
